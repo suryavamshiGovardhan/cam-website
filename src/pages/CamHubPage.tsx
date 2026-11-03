@@ -8,6 +8,7 @@ import {
 import CamShell, { coverBgForSlug } from "@/components/cam/CamShell";
 import { TopicArt, artForSlug } from "@/components/cam/illustrations";
 import ParentTrust from "@/components/ParentTrust";
+import ShareButtons from "@/components/ShareButtons";
 import { cam } from "@/data/cam";
 
 const articles = [...cam.articles].sort((a, b) => a.order - b.order);
@@ -330,6 +331,26 @@ export default function CamHubPage() {
             <span className="cam-way-title">Look a little each day</span>
             <span className="cam-way-hint">Tiny tasks. Tick them off on this device.</span>
           </Link>
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-6xl px-4 pt-8 sm:px-5" aria-label="Share CAM">
+        <div className="cam-card flex flex-col gap-4 p-5 sm:flex-row sm:items-center sm:justify-between sm:p-6">
+          <div>
+            <p className="cam-kicker">Pass it on</p>
+            <p className="cam-serif mt-2 text-2xl leading-tight">Share CAM with a friend or parent.</p>
+            <p className="cam-muted mt-1 text-sm">A free career-exposure map for Classes 8–12 — no login.</p>
+          </div>
+          <ShareButtons
+            path="/"
+            text="Check out CAM — free career-exposure for Classes 8–12 (talk, job atlas, game, 30 days). An initiative of VOYCE:"
+            whatsappLabel="Share on WhatsApp"
+            story={{
+              kicker: "Career Advisory Movement",
+              headline: "Exposure is all you need",
+              subline: "2,000+ real jobs. Free for Classes 8–12.",
+            }}
+          />
         </div>
       </section>
 

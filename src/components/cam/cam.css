@@ -327,3 +327,26 @@
   .cam-way { transition: none; }
   .cam-way:hover, .cam-way:focus-visible { transform: none; }
 }
+
+
+/* ——— share buttons ——— */
+.cam-share-wa {
+  background: #25D366;
+  color: #FFFFFF;
+  border: 2px solid #0F3D3E;
+  box-shadow: 4px 4px 0 #0F3D3E;
+}
+.cam-share-wa:hover { transform: translate(-2px, -2px); box-shadow: 6px 6px 0 #0F3D3E; }
+.cam-share-wa:focus-visible { outline: 3px solid #FF6B5B; outline-offset: 3px; }
+.cam-share-ig {
+  background: #E1306C;
+  color: #FFFFFF;
+  border: 2px solid #0F3D3E;
+  box-shadow: 4px 4px 0 #0F3D3E;
+}
+.cam-share-ig:hover { transform: translate(-2px, -2px); box-shadow: 6px 6px 0 #0F3D3E; }
+.cam-share-ig:disabled { opacity: 0.7; cursor: wait; }
+.cam-share-ig:focus-visible { outline: 3px solid #FFC94A; outline-offset: 3px; }
+@media (prefers-reduced-motion: reduce) {
+  .cam-share-wa:hover, .cam-share-ig:hover { transform: none; }
+}

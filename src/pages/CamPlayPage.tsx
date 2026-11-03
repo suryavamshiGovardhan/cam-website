@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { ArrowRight, Lightbulb, RotateCcw, Sparkles } from "lucide-react";
 import CamShell from "@/components/cam/CamShell";
+import ShareButtons from "@/components/ShareButtons";
 import { cam } from "@/data/cam";
 
 interface Round {
@@ -142,6 +143,18 @@ export default function CamPlayPage() {
               <Link to="/atlas" className="cam-btn cam-btn-ghost cam-lift">
                 Browse the atlas <ArrowRight className="h-4 w-4" aria-hidden="true" />
               </Link>
+            </div>
+            <div className="mt-8 flex justify-center">
+              <ShareButtons
+                path="/play"
+                text={`I scored ${score}/${rounds.length} on CAM Guess the Job — careers school never named. Try it:`}
+                whatsappLabel="Share score on WhatsApp"
+                story={{
+                  kicker: "Guess the Job",
+                  headline: `${score} / ${rounds.length}`,
+                  subline: "I just played CAM. Beat my score?",
+                }}
+              />
             </div>
           </div>
         )}

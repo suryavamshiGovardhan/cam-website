@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { Check, RotateCcw, Sparkles } from "lucide-react";
 import CamShell from "@/components/cam/CamShell";
+import ShareButtons from "@/components/ShareButtons";
 import { cam } from "@/data/cam";
 
 interface Day { day: number; title: string; task: string; minutes: number }
@@ -103,6 +104,21 @@ export default function CamChallengePage() {
               Up next: Day {String(nextDay).padStart(2, "0")} — scroll to the highlighted card.
             </p>
           )}
+          {done.length > 0 && (
+            <div className="mt-5">
+              <ShareButtons
+                compact
+                path="/challenge"
+                text={`Day ${Math.max(...done)} of CAM's 30 days of looking — one small career-exposure task done. Join me:`}
+                whatsappLabel="Share day on WhatsApp"
+                story={{
+                  kicker: "30 days of looking",
+                  headline: `Day ${String(Math.max(...done)).padStart(2, "0")}`,
+                  subline: "One small look. A wider map.",
+                }}
+              />
+            </div>
+          )}
         </div>
 
         <ol className="mt-8 grid gap-3 sm:grid-cols-2">
@@ -110,7 +126,7 @@ export default function CamChallengePage() {
             const isDone = done.includes(d.day);
             const isNext = d.day === nextDay;
             return (
-              <li key={d.day}>
+              <li key={d.day} className="flex flex-col gap-2">
                 <button
                   type="button"
                   onClick={() => toggle(d.day)}
@@ -150,6 +166,19 @@ export default function CamChallengePage() {
                     <span className={`cam-muted mt-1 block text-sm leading-relaxed ${isDone ? "opacity-50" : ""}`}>{d.task}</span>
                   </span>
                 </button>
+                {isDone && (
+                  <ShareButtons
+                    compact
+                    path="/challenge"
+                    text={`Day ${d.day} of CAM done — "${d.title}". One small look toward a wider career map:`}
+                    whatsappLabel="Share this day"
+                    story={{
+                      kicker: "30 days of looking",
+                      headline: `Day ${String(d.day).padStart(2, "0")}`,
+                      subline: "Keep going. Exposure is all you need.",
+                    }}
+                  />
+                )}
               </li>
             );
           })}
