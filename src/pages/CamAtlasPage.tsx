@@ -57,11 +57,11 @@ export default function CamAtlasPage() {
             onChange={(e) => { setQuery(e.target.value); submit(e.target.value); }}
             placeholder="Search careers — tea, ocean, type, cricket…"
             aria-label="Search careers"
-            className="cam-mono w-full bg-transparent text-sm outline-none placeholder:opacity-50"
-            style={{ color: "var(--cam-fg)" }}
+            className="cam-mono w-full bg-transparent text-base outline-none placeholder:opacity-50 sm:text-sm"
+            style={{ color: "var(--cam-fg)", minHeight: 48 }}
           />
           {query && (
-            <button type="button" aria-label="Clear search" onClick={() => { setQuery(""); submit(""); }} className="shrink-0 rounded-full p-1 hover:text-[color:var(--cam-fg)]" style={{ color: "var(--cam-dim)" }}>
+            <button type="button" aria-label="Clear search" onClick={() => { setQuery(""); submit(""); }} className="inline-flex min-h-11 min-w-11 shrink-0 items-center justify-center rounded-full hover:text-[color:var(--cam-fg)]" style={{ color: "var(--cam-dim)" }}>
               <X className="h-4 w-4" aria-hidden="true" />
             </button>
           )}

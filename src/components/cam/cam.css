@@ -17,8 +17,8 @@
   --cam-mint: #BFE8DC;
 
   --cam-fg: var(--cam-ink);
-  --cam-muted: #35615E;
-  --cam-dim: #5E8582;
+  --cam-muted: #2A524F;
+  --cam-dim: #3F6B68;
   --cam-line: #0F3D3E;
   --cam-line-soft: rgba(15, 61, 62, 0.22);
 
@@ -127,7 +127,7 @@
 .cam-btn-ghost { background: var(--cam-card); color: var(--cam-ink); }
 .cam-option {
   border: 2px solid var(--cam-ink); border-radius: 12px;
-  padding: 12px 16px; min-height: 44px; text-align: left;
+  padding: 14px 16px; min-height: 48px; text-align: left;
   background: var(--cam-card); color: var(--cam-ink); font-weight: 600;
   transition: transform 140ms, box-shadow 140ms, background 160ms, color 160ms, opacity 160ms;
 }
@@ -188,7 +188,7 @@
 /* ——— reading progress ——— */
 .cam-progress {
   position: fixed; inset-inline: 0; top: 0; z-index: 80;
-  height: 5px; background: transparent; pointer-events: none;
+  height: 6px; background: rgba(15,61,62,.12); pointer-events: none;
 }
 .cam-progress > div { height: 100%; background: var(--cam-coral); }
 
@@ -255,4 +255,75 @@
   .cam-marquee-track { animation: none; }
   .cam-flip-inner { transition: none; }
   .cam-progress > div { transition: none; }
+}
+
+
+/* ——— skip link + focus ——— */
+.cam-skip {
+  position: absolute; left: 12px; top: -100px; z-index: 100;
+  background: var(--cam-sun); color: var(--cam-ink);
+  border: 2px solid var(--cam-ink); border-radius: 999px;
+  font-weight: 800; font-size: 14px; padding: 10px 18px;
+  box-shadow: 4px 4px 0 var(--cam-ink);
+}
+.cam-skip:focus { top: 12px; outline: 3px solid var(--cam-coral); outline-offset: 3px; }
+.cam .cam-btn:focus-visible,
+.cam .cam-chip:focus-visible,
+.cam .cam-option:focus-visible,
+.cam .cam-tile:focus-visible,
+.cam a:focus-visible {
+  outline: 3px solid var(--cam-coral);
+  outline-offset: 3px;
+}
+
+/* ——— ways-in strip ——— */
+.cam-ways {
+  display: grid; gap: 12px;
+  grid-template-columns: 1fr 1fr;
+}
+@media (min-width: 768px) {
+  .cam-ways { grid-template-columns: repeat(4, 1fr); }
+}
+.cam-way {
+  display: flex; flex-direction: column; gap: 6px;
+  min-height: 112px; padding: 16px;
+  background: var(--cam-card); color: var(--cam-ink);
+  border: 2px solid var(--cam-ink); border-radius: 1rem;
+  box-shadow: 4px 4px 0 var(--cam-ink);
+  transition: transform 150ms cubic-bezier(.2,.8,.2,1), box-shadow 150ms ease;
+}
+.cam-way:hover, .cam-way:focus-visible {
+  transform: translate(-3px, -3px);
+  box-shadow: 7px 7px 0 var(--cam-ink);
+}
+.cam-way-title {
+  font-family: "Bricolage Grotesque", sans-serif;
+  font-weight: 800; font-size: 1.15rem; letter-spacing: -0.02em; line-height: 1.1;
+}
+.cam-way-hint { color: var(--cam-muted); font-size: 13px; font-weight: 600; line-height: 1.35; }
+
+/* ——— interactive progress track ——— */
+.cam-track {
+  display: flex; gap: 6px; width: 100%;
+}
+.cam-track > span {
+  flex: 1; height: 8px; border-radius: 999px;
+  background: rgba(15, 61, 62, 0.15);
+}
+.cam-track > span[data-on="true"] { background: var(--cam-coral); }
+.cam-track > span[data-done="true"] { background: var(--cam-teal); }
+
+.cam-milestone {
+  display: inline-flex; align-items: center; gap: 6px;
+  border: 2px solid var(--cam-ink); border-radius: 999px;
+  background: var(--cam-sun); color: var(--cam-ink);
+  font-size: 12px; font-weight: 800; padding: 6px 12px; min-height: 36px;
+}
+.cam-milestone[data-locked="true"] {
+  background: var(--cam-card); color: var(--cam-dim); opacity: .85;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cam-way { transition: none; }
+  .cam-way:hover, .cam-way:focus-visible { transform: none; }
 }

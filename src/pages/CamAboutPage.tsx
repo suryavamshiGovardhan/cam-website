@@ -1,5 +1,6 @@
 import CamShell from "@/components/cam/CamShell";
 import { PiecesRow, ContactCard } from "@/components/cam/CamVisual";
+import ParentTrust from "@/components/ParentTrust";
 import { cam } from "@/data/cam";
 
 export default function CamAboutPage() {
@@ -16,6 +17,8 @@ export default function CamAboutPage() {
           CAM stands for Career Advisory Movement. It began as a keynote for Classes 8 to 12 and grew into a reading series,
           an atlas, a game and a month of looking. The promise is the same in every part: <strong>not a career — a wider map.</strong>
         </p>
+
+        <div className="mt-12"><ParentTrust /></div>
 
         <div className="mt-12">
           <p className="cam-kicker">The four parts</p>

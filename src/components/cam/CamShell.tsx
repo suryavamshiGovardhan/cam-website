@@ -30,6 +30,9 @@ export default function CamShell({ title, description, canonical, children }: Pr
   return (
     <>
       <SEOHead title={title} description={description} canonicalUrl={`${SITE}${path}`} />
+      <a href="#main-content" className="cam-skip">
+        Skip to content
+      </a>
       <CamHeader />
       <div aria-hidden="true" className="cam" style={{ height: 4, background: "var(--cam-coral)" }} />
       <div className="cam">
@@ -39,9 +42,9 @@ export default function CamShell({ title, description, canonical, children }: Pr
             <span>{MARQUEE.repeat(8)}</span>
           </div>
         </div>
-        <main id="main-content" className="min-h-screen">
+        <main id="main-content" className="min-h-screen" tabIndex={-1}>
           {children}
-          <section className="border-t-2" style={{ borderColor: "var(--cam-line-soft)" }}>
+          <section className="border-t-2" style={{ borderColor: "var(--cam-line-soft)" }} aria-label="CAM contact strip">
             <div className="mx-auto flex max-w-6xl flex-col gap-4 px-5 py-10 text-sm sm:flex-row sm:items-center sm:justify-between">
               <div>
                 <p className="cam-serif text-lg">{cam.meta.brand}</p>
@@ -50,14 +53,14 @@ export default function CamShell({ title, description, canonical, children }: Pr
                 </p>
               </div>
               <div className="flex flex-wrap gap-4">
-                <a href={`mailto:${cam.meta.email}`} className="cam-muted font-semibold hover:text-[color:var(--cam-ink)]">
+                <a href={`mailto:${cam.meta.email}`} className="cam-muted inline-flex min-h-11 items-center font-semibold hover:text-[color:var(--cam-ink)]">
                   {cam.meta.email}
                 </a>
                 <a
                   href={cam.meta.instagram.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="cam-muted font-semibold hover:text-[color:var(--cam-ink)]"
+                  className="cam-muted inline-flex min-h-11 items-center font-semibold hover:text-[color:var(--cam-ink)]"
                 >
                   Instagram {cam.meta.instagram.handle}
                 </a>
@@ -65,7 +68,7 @@ export default function CamShell({ title, description, canonical, children }: Pr
                   href={cam.meta.x.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="cam-muted font-semibold hover:text-[color:var(--cam-ink)]"
+                  className="cam-muted inline-flex min-h-11 items-center font-semibold hover:text-[color:var(--cam-ink)]"
                 >
                   X {cam.meta.x.handle}
                 </a>

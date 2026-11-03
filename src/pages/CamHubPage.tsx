@@ -7,6 +7,7 @@ import {
 } from "lucide-react";
 import CamShell, { coverBgForSlug } from "@/components/cam/CamShell";
 import { TopicArt, artForSlug } from "@/components/cam/illustrations";
+import ParentTrust from "@/components/ParentTrust";
 import { cam } from "@/data/cam";
 
 const articles = [...cam.articles].sort((a, b) => a.order - b.order);
@@ -267,18 +268,68 @@ export default function CamHubPage() {
             >
               2,000+ real jobs. Which one have you never heard of?
             </motion.p>
+            <motion.p
+              initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 1.0, duration: 0.45, ease: EASE }}
+              className="mx-auto mt-3 max-w-xl text-sm font-semibold leading-relaxed sm:text-base"
+              style={{ color: "var(--cam-mint)" }}
+            >
+              Free career-exposure for Classes 8–12. No login. Pick a way in — start with the game if you want something fun first.
+            </motion.p>
             <motion.div
               initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 1.1, duration: 0.5, ease: EASE }}
-              className="mt-7 flex flex-wrap items-center justify-center gap-3"
+              className="mt-7 flex flex-col items-center gap-3 sm:flex-row sm:justify-center"
             >
-              <a href={cam.meta.instagram.url} target="_blank" rel="noopener noreferrer" className="cam-pill" style={{ fontSize: 14, padding: "10px 20px", background: "var(--cam-coral)" }}>
-                {cam.meta.instagram.handle}
-              </a>
-              <Link to="/articles/the-question-you-were-asked-at-ten" className="cam-btn cam-btn-sun">
-                Start reading <ArrowRight className="h-4 w-4" aria-hidden="true" />
+              <Link to="/play" className="cam-btn cam-btn-sun w-full sm:w-auto">
+                Play Guess the Job <ArrowRight className="h-4 w-4" aria-hidden="true" />
+              </Link>
+              <Link to="/articles/the-question-you-were-asked-at-ten" className="cam-btn cam-btn-ghost w-full sm:w-auto" style={{ background: "#FFFFFF" }}>
+                Or start reading
               </Link>
             </motion.div>
+            <motion.p
+              initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.25, duration: 0.4 }}
+              className="mt-4 text-xs font-semibold"
+              style={{ color: "var(--cam-mint)" }}
+            >
+              Follow along on Instagram{" "}
+              <a href={cam.meta.instagram.url} target="_blank" rel="noopener noreferrer" className="underline" style={{ color: "#FFFFFF" }}>
+                {cam.meta.instagram.handle}
+              </a>
+            </motion.p>
           </div>
+        </div>
+      </section>
+
+      {/* ——— WAYS IN ——— */}
+      <section className="mx-auto max-w-6xl px-4 pt-8 sm:px-5" aria-labelledby="ways-in-title">
+        <div className="flex flex-wrap items-end justify-between gap-3">
+          <div>
+            <p className="cam-kicker">Ways in</p>
+            <h2 id="ways-in-title" className="cam-serif mt-2 text-2xl sm:text-3xl">Four doors. Same map.</h2>
+          </div>
+          <Link to="/about#for-parents" className="cam-chip">Parents: what is CAM?</Link>
+        </div>
+        <div className="cam-ways mt-5">
+          <Link to="/play" className="cam-way">
+            <span className="cam-pill cam-pill-sun" style={{ width: "fit-content" }}>Play</span>
+            <span className="cam-way-title">Guess the job</span>
+            <span className="cam-way-hint">Ten clues from real Tuesdays. Fast and fun.</span>
+          </Link>
+          <Link to="/atlas" className="cam-way">
+            <span className="cam-pill" style={{ width: "fit-content" }}>Jobs</span>
+            <span className="cam-way-title">Search the atlas</span>
+            <span className="cam-way-hint">{jobCount.toLocaleString("en-IN")}+ careers school rarely names.</span>
+          </Link>
+          <Link to="/talk" className="cam-way">
+            <span className="cam-pill cam-pill-mint" style={{ width: "fit-content" }}>Talk</span>
+            <span className="cam-way-title">Walk the keynote</span>
+            <span className="cam-way-hint">The talk, as slides you can click through.</span>
+          </Link>
+          <Link to="/challenge" className="cam-way">
+            <span className="cam-pill" style={{ width: "fit-content", background: "var(--cam-teal)" }}>30 days</span>
+            <span className="cam-way-title">Look a little each day</span>
+            <span className="cam-way-hint">Tiny tasks. Tick them off on this device.</span>
+          </Link>
         </div>
       </section>
 
@@ -289,6 +340,8 @@ export default function CamHubPage() {
         <div className="mt-5"><TenSecondChallenge /></div>
 
         <div className="mt-16"><ToldVsExists /></div>
+
+        <div className="mt-16"><ParentTrust /></div>
 
         {/* principals band */}
         <div className="cam-band mt-16 px-6 py-10 sm:px-10">
@@ -393,14 +446,20 @@ export default function CamHubPage() {
         <p className="cam-serif text-[clamp(26px,5vw,48px)]" style={{ color: "#FFFFFF" }}>
           EXPOSURE IS ALL YOU NEED.
         </p>
-        <a
-          href={cam.meta.instagram.url}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="cam-btn mt-6 inline-flex"
-        >
-          Follow {cam.meta.instagram.handle} <ArrowRight className="h-4 w-4" aria-hidden="true" />
-        </a>
+        <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
+          <Link to="/play" className="cam-btn cam-btn-sun">
+            Play Guess the Job <ArrowRight className="h-4 w-4" aria-hidden="true" />
+          </Link>
+          <a
+            href={cam.meta.instagram.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="cam-btn cam-btn-ghost"
+            style={{ background: "#FFFFFF" }}
+          >
+            Follow {cam.meta.instagram.handle}
+          </a>
+        </div>
       </section>
     </CamShell>
   );

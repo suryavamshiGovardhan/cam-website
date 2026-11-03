@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { ArrowRight, Lightbulb, RotateCcw } from "lucide-react";
+import { ArrowRight, Lightbulb, RotateCcw, Sparkles } from "lucide-react";
 import CamShell from "@/components/cam/CamShell";
 import { cam } from "@/data/cam";
 
@@ -30,16 +30,32 @@ export default function CamPlayPage() {
   };
 
   const next = () => {
-    if (i + 1 < rounds.length) { setI(i + 1); setPicked(null); }
-    else setDone(true);
+    if (i + 1 < rounds.length) {
+      setI(i + 1);
+      setPicked(null);
+    } else setDone(true);
   };
 
-  const restart = () => { setI(0); setPicked(null); setScore(0); setDone(false); };
+  const restart = () => {
+    setI(0);
+    setPicked(null);
+    setScore(0);
+    setDone(false);
+  };
 
   const verdict =
-    score >= 8 ? "The world was already interesting. You just had names for it."
-    : score >= 5 ? "Half the room had no idea either. That gap is the point."
-    : "Wrong answers are useful — they prove the gap. That's what CAM is for.";
+    score >= 8
+      ? "The world was already interesting. You just had names for it."
+      : score >= 5
+        ? "Half the room had no idea either. That gap is the point."
+        : "Wrong answers are useful — they prove the gap. That's what CAM is for.";
+
+  const cheer =
+    score === 0 && i === 0
+      ? "No pressure — wrong answers still teach you something."
+      : score > i
+        ? "Nice streak of noticing."
+        : "Keep going — every miss widens the map.";
 
   return (
     <CamShell
@@ -51,26 +67,37 @@ export default function CamPlayPage() {
         <p className="cam-kicker">Play</p>
         <h1 className="cam-serif mt-4 text-[38px] leading-[1.05] sm:text-5xl">Guess the job.</h1>
         <p className="cam-muted mt-4 text-lg leading-relaxed">
-          Clues from real Tuesdays. Four names. One of them is hiding in the world already.
+          Clues from real Tuesdays. Four names. Tap one. Learn something either way.
         </p>
 
         {!done ? (
           <div className="mt-10">
-            <div className="flex items-center justify-between">
-              <p className="cam-mono text-[11px] uppercase tracking-[0.2em] cam-dim">Round {i + 1} / {rounds.length}</p>
-              <p className="cam-mono text-[11px] uppercase tracking-[0.2em]" style={{ color: "var(--cam-kraft)" }}>Score {score}</p>
+            <div className="flex flex-wrap items-center justify-between gap-3">
+              <p className="cam-mono text-[11px] uppercase tracking-[0.2em] cam-dim">
+                Round {i + 1} / {rounds.length}
+              </p>
+              <p
+                className="cam-mono inline-flex min-h-9 items-center gap-2 rounded-full px-3 text-[11px] uppercase tracking-[0.16em]"
+                style={{ background: "var(--cam-sun)", color: "var(--cam-ink)", border: "2px solid var(--cam-ink)" }}
+                aria-live="polite"
+              >
+                <Sparkles className="h-3.5 w-3.5" aria-hidden="true" /> Score {score}
+              </p>
             </div>
-            <div className="mt-3 flex gap-1.5" aria-hidden="true">
+            <div className="cam-track mt-3" role="progressbar" aria-valuemin={0} aria-valuemax={rounds.length} aria-valuenow={i + (revealed ? 1 : 0)} aria-label="Game progress">
               {rounds.map((_, k) => (
-                <span key={k} className="h-1 flex-1 rounded-full" style={{ background: k <= i ? "var(--cam-kraft)" : "var(--cam-line)" }} />
+                <span key={k} data-on={k <= i ? "true" : "false"} data-done={k < i || (k === i && revealed) ? "true" : undefined} />
               ))}
             </div>
+            <p className="cam-dim mt-3 text-sm font-semibold" aria-live="polite">
+              {cheer}
+            </p>
 
             <div key={round.answer} className="cam-card cam-slide-in mt-6 p-6 sm:p-8">
               <p className="cam-kicker">Clue {i + 1} / {rounds.length}</p>
               <p className="cam-serif mt-4 text-[clamp(20px,3vw,26px)] leading-snug">“{round.clue}”</p>
 
-              <div className="mt-6 grid gap-2.5 sm:grid-cols-2">
+              <div className="mt-6 grid gap-3 sm:grid-cols-2" role="group" aria-label="Choose an answer">
                 {round.options.map((o) => {
                   let state: string | undefined;
                   if (revealed) {
@@ -78,7 +105,7 @@ export default function CamPlayPage() {
                     else if (o === picked) state = "wrong";
                   } else if (o === picked) state = "picked";
                   return (
-                    <button key={o} type="button" onClick={() => pick(o)} className="cam-option" data-state={state} disabled={revealed}>
+                    <button key={o} type="button" onClick={() => pick(o)} className="cam-option" data-state={state} disabled={revealed} aria-pressed={o === picked}>
                       {o}
                     </button>
                   );
@@ -86,8 +113,12 @@ export default function CamPlayPage() {
               </div>
 
               {revealed && (
-                <div className="cam-slide-in mt-6 rounded-2xl p-5" style={{ background: "var(--cam-ink2)", boxShadow: "var(--cam-shadow-border)" }}>
-                  <p className="cam-kicker inline-flex items-center gap-2"><Lightbulb className="h-3.5 w-3.5" aria-hidden="true" /> The answer: {round.answer}</p>
+                <div className="cam-slide-in mt-6 rounded-2xl p-5" style={{ background: "var(--cam-ink2)", boxShadow: "var(--cam-shadow-border)" }} aria-live="polite">
+                  <p className="cam-kicker inline-flex items-center gap-2">
+                    <Lightbulb className="h-3.5 w-3.5" aria-hidden="true" />{" "}
+                    {picked === round.answer ? "Yes — " : "Close — "}
+                    {round.answer}
+                  </p>
                   <p className="cam-muted mt-3 text-sm leading-relaxed">{round.why}</p>
                   <p className="cam-dim mt-2 text-sm italic">Hint for next time: {round.hint}</p>
                   <button type="button" onClick={next} className="cam-btn cam-lift mt-5">
@@ -100,14 +131,16 @@ export default function CamPlayPage() {
         ) : (
           <div className="cam-card cam-slide-in mt-10 p-8 text-center sm:p-12">
             <p className="cam-kicker">Final score</p>
-            <p className="cam-serif mt-4 text-7xl leading-none" style={{ color: "var(--cam-coral)" }}>{score} / {rounds.length}</p>
+            <p className="cam-serif mt-4 text-7xl leading-none" style={{ color: "var(--cam-coral)" }} aria-live="polite">
+              {score} / {rounds.length}
+            </p>
             <p className="cam-muted mx-auto mt-6 max-w-md text-lg leading-relaxed">{verdict}</p>
             <div className="mt-8 flex flex-wrap justify-center gap-3">
               <button type="button" onClick={restart} className="cam-btn cam-lift">
                 <RotateCcw className="h-4 w-4" aria-hidden="true" /> Play again
               </button>
               <Link to="/atlas" className="cam-btn cam-btn-ghost cam-lift">
-                Browse all {Object.values(cam.source.atlasIndex).flat().length.toLocaleString("en-IN")} jobs <ArrowRight className="h-4 w-4" aria-hidden="true" />
+                Browse the atlas <ArrowRight className="h-4 w-4" aria-hidden="true" />
               </Link>
             </div>
           </div>

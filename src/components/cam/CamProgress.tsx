@@ -25,8 +25,17 @@ export default function CamProgress() {
     };
   }, []);
 
+  const pct = Math.round(progress * 100);
+
   return (
-    <div className="cam-progress" aria-hidden="true">
+    <div
+      className="cam-progress"
+      role="progressbar"
+      aria-valuemin={0}
+      aria-valuemax={100}
+      aria-valuenow={pct}
+      aria-label="Reading progress"
+    >
       <div style={{ width: `${(progress * 100).toFixed(2)}%` }} />
     </div>
   );
