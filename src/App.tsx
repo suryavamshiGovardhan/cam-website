@@ -10,6 +10,7 @@ const CamFitPage = lazy(() => import("./pages/CamFitPage"));
 const CamChallengePage = lazy(() => import("./pages/CamChallengePage"));
 const CamAboutPage = lazy(() => import("./pages/CamAboutPage"));
 const NotFound = lazy(() => import("./pages/NotFound"));
+const AdminDeckPage = lazy(() => import("./pages/admin/AdminDeckPage"));
 
 function Fallback() {
   return (
@@ -39,6 +40,8 @@ export default function App() {
         <Route path="/fit" element={<CamFitPage />} />
         <Route path="/challenge" element={<CamChallengePage />} />
         <Route path="/about" element={<CamAboutPage />} />
+        <Route path="/admin/*" element={<AdminDeckPage />} />
+        <Route path="/admin" element={<AdminDeckPage />} />
         <Route path="/cam/*" element={<LegacyCamRedirect />} />
         <Route path="/cam" element={<Navigate to="/" replace />} />
         <Route path="*" element={<NotFound />} />
