@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { SEOHead } from "@/components/SEOHead";
 import AdminPassGate from "./AdminPassGate";
-import { SLIDES } from "./slides";
+import { SLIDES, type Slide } from "./slides";
 import "@/components/cam/cam.css";
 
 function useSwipe(onLeft: () => void, onRight: () => void) {
@@ -24,12 +24,14 @@ function useSwipe(onLeft: () => void, onRight: () => void) {
   };
 }
 
-function Deck() {
+export function Deck({ slides = SLIDES, label = "CAM · school pitch", sub = "Hyderabad · Classes 8–12 · founders & principals", extra }: { slides?: Slide[]; label?: string; sub?: string; extra?: React.ReactNode }) {
+  const SL = slides;
+  const [notesOpen, setNotesOpen] = useState(false);
   const [i, setI] = useState(0);
   const [present, setPresent] = useState(false);
   const rootRef = useRef<HTMLDivElement>(null);
-  const n = SLIDES.length;
-  const slide = SLIDES[i];
+  const n = SL.length;
+  const slide = SL[i];
 
   const go = useCallback(
     (next: number) => {
@@ -54,6 +56,8 @@ function Deck() {
       } else if (e.key === "End") {
         e.preventDefault();
         go(n - 1);
+      } else if (e.key === "n" || e.key === "N") {
+        setNotesOpen((v) => !v);
       } else if (e.key === "f" || e.key === "F") {
         togglePresent();
       } else if (e.key === "Escape" && document.fullscreenElement) {
@@ -103,10 +107,10 @@ function Deck() {
       >
         <div>
           <p className="text-xs font-extrabold uppercase tracking-wide" style={{ color: "var(--cam-coral)" }}>
-            CAM · school pitch
+            {label}
           </p>
           <p className="text-sm font-bold" style={{ color: "var(--cam-dim)" }}>
-            Hyderabad · Classes 8–12 · founders & principals
+            {sub}
           </p>
         </div>
         <div className="flex flex-wrap items-center gap-2">
@@ -116,6 +120,12 @@ function Deck() {
           <button type="button" className="cam-btn cam-btn-ghost" style={{ minHeight: 40, padding: "8px 14px" }} onClick={togglePresent}>
             {present ? "Exit present" : "Present"}
           </button>
+          {slide.notes && (
+            <button type="button" className="cam-btn cam-btn-ghost" style={{ minHeight: 40, padding: "8px 14px" }} onClick={() => setNotesOpen((v) => !v)} aria-pressed={notesOpen}>
+              Notes (N)
+            </button>
+          )}
+          {extra}
         </div>
       </header>
 
@@ -135,6 +145,13 @@ function Deck() {
         <div className="mx-auto flex w-full max-w-5xl flex-1 flex-col">{slide.body}</div>
       </div>
 
+      {notesOpen && slide.notes && (
+        <aside aria-label="Speaker notes" className="max-h-[40vh] overflow-y-auto border-t-2 px-5 py-4 sm:px-10" style={{ borderColor: "var(--cam-ink)", background: "#0F3D3E", color: "#FFF6E9" }}>
+          <p className="text-xs font-extrabold uppercase tracking-wide" style={{ color: "#FFC94A" }}>Speaker script</p>
+          <p className="mt-2 whitespace-pre-line text-base leading-relaxed">{slide.notes}</p>
+        </aside>
+      )}
+
       {/* controls */}
       <footer
         className="flex items-center justify-between gap-3 border-t-2 px-4 py-3 sm:px-6"
@@ -144,7 +161,7 @@ function Deck() {
           ← Prev
         </button>
         <div className="flex max-w-[50%] flex-1 justify-center gap-1 overflow-x-auto" aria-hidden="true">
-          {SLIDES.map((s, idx) => (
+          {SL.map((s, idx) => (
             <button
               key={s.id}
               type="button"
@@ -163,7 +180,7 @@ function Deck() {
         </button>
       </footer>
       <p className="px-4 pb-3 text-center text-[10px] font-semibold" style={{ color: "var(--cam-dim)" }}>
-        ← → keys · swipe · click left/right · F present
+        ← → keys · swipe · click left/right · F present · N notes
       </p>
     </div>
   );
@@ -172,7 +189,7 @@ function Deck() {
 export default function AdminDeckPage() {
   return (
     <AdminPassGate>
-      <Deck />
+      <Deck extra={<a href="/cam-website/admin/session" className="cam-btn cam-btn-sun" style={{ minHeight: 40, padding: "8px 14px" }}>Student session →</a>} />
     </AdminPassGate>
   );
 }

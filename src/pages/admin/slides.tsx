@@ -5,6 +5,7 @@ export type Slide = {
   id: string;
   title: string; // for counter aria
   body: ReactNode;
+  notes?: string;
 };
 
 const foot = (text: string) => (
