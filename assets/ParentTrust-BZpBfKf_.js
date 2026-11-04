@@ -1,0 +1,21 @@
+import{j as e,L as n}from"./index-C-gyjEqp.js";import{c as a,a as r}from"./CamShell-BqRkujIN.js";/**
+ * @license lucide-react v0.462.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */const l=a("BookOpen",[["path",{d:"M12 7v14",key:"1akyts"}],["path",{d:"M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z",key:"ruj8y"}]]);/**
+ * @license lucide-react v0.462.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */const d=a("Gift",[["rect",{x:"3",y:"8",width:"18",height:"4",rx:"1",key:"bkv52"}],["path",{d:"M12 8v13",key:"1c76mn"}],["path",{d:"M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7",key:"6wjy6b"}],["path",{d:"M7.5 8a2.5 2.5 0 0 1 0-5A4.8 8 0 0 1 12 8a4.8 8 0 0 1 4.5-5 2.5 2.5 0 0 1 0 5",key:"1ihvrl"}]]);/**
+ * @license lucide-react v0.462.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */const m=a("HeartHandshake",[["path",{d:"M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z",key:"c3ymky"}],["path",{d:"M12 5 9.04 7.96a2.17 2.17 0 0 0 0 3.08c.82.82 2.13.85 3 .07l2.07-1.9a2.82 2.82 0 0 1 3.79 0l2.96 2.66",key:"4oyue0"}],["path",{d:"m18 15-2-2",key:"60u0ii"}],["path",{d:"m15 18-2-2",key:"6p76be"}]]);/**
+ * @license lucide-react v0.462.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */const h=a("ShieldCheck",[["path",{d:"M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z",key:"oel41y"}],["path",{d:"m9 12 2 2 4-4",key:"dzmm74"}]]);function y({id:t="for-parents"}){const i=[{Icon:l,title:"What it is",body:"CAM is a career-exposure reading series for Classes 8–12: a talk, an atlas of real jobs, a guessing game, six lenses for choosing, and thirty days of looking. It widens the map — it does not pick a career for your child."},{Icon:h,title:"Safe by design",body:"CAM does not give career, admissions or psychological advice. The atlas is a door into the world of work — not the whole building. No login is required to read, play or tick off days."},{Icon:d,title:"Free to start",body:"Built for Classes 8–12 and free to start. Progress on the thirty-day challenge stays on this device."},{Icon:m,title:"From VOYCE",body:`${r.meta.brand}. Built by ${r.meta.founders.map(s=>s.name).join(" and ")}.`}];return e.jsxs("section",{id:t,className:"rounded-2xl p-6 sm:p-8",style:{background:"var(--cam-card)",border:"2px solid var(--cam-ink)",boxShadow:"6px 6px 0 var(--cam-ink)"},"aria-labelledby":`${t}-title`,children:[e.jsx("p",{className:"cam-kicker",children:"For parents"}),e.jsx("h2",{id:`${t}-title`,className:"cam-serif mt-3 text-3xl leading-tight sm:text-4xl",children:"A wider map — not pressure to decide today."}),e.jsx("p",{className:"cam-muted mt-3 max-w-2xl text-base leading-relaxed",children:"Short version: CAM helps students notice more real jobs before subject choices get locked in. Here is what parents usually want to know."}),e.jsx("ul",{className:"mt-8 grid gap-4 sm:grid-cols-2",children:i.map(({Icon:s,title:o,body:c})=>e.jsxs("li",{className:"cam-tile flex gap-3 p-4",children:[e.jsx("span",{className:"flex h-11 w-11 shrink-0 items-center justify-center rounded-full",style:{background:"var(--cam-mint)",border:"2px solid var(--cam-ink)"},"aria-hidden":"true",children:e.jsx(s,{className:"h-5 w-5",style:{color:"var(--cam-teal-dark)"}})}),e.jsxs("div",{children:[e.jsx("p",{className:"cam-serif text-lg leading-tight",children:o}),e.jsx("p",{className:"cam-muted mt-1.5 text-sm leading-relaxed",children:c})]})]},o))}),e.jsxs("div",{className:"mt-6 flex flex-wrap gap-3",children:[e.jsx(n,{to:"/about",className:"cam-btn cam-btn-ghost",children:"Read About CAM"}),e.jsx("a",{href:`mailto:${r.meta.email}?subject=${encodeURIComponent("Question about CAM")}`,className:"cam-btn cam-btn-sun",children:"Ask us a question"})]})]})}export{y as P};
