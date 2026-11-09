@@ -22,7 +22,7 @@ const CATEGORY_BG: Record<string, string> = {
   About: "coral",
 };
 
-const MARQUEE = "EXPOSURE IS ALL YOU NEED ✦ @CAM.VOYCE ✦ ";
+const MARQUEE = "1,058 JOBS · 87 INDUSTRIES · @CAM.VOYCE · CLASSES 8–12 · ";
 const SITE = "https://suryavamshigovardhan.github.io/cam-website";
 
 export default function CamShell({ title, description, canonical, children }: Props) {
@@ -48,8 +48,8 @@ export default function CamShell({ title, description, canonical, children }: Pr
             <div className="mx-auto flex max-w-6xl flex-col gap-4 px-5 py-10 text-sm sm:flex-row sm:items-center sm:justify-between">
               <div>
                 <p className="cam-serif text-lg">{cam.meta.brand}</p>
-                <p className="cam-mono mt-1" style={{ color: "var(--cam-coral)" }}>
-                  EXPOSURE IS ALL YOU NEED
+                <p className="cam-mono mt-1 text-xs" style={{ color: "var(--cam-coral)" }}>
+                  Advisory = widen options, don't pick for you
                 </p>
               </div>
               <div className="flex flex-wrap gap-4">

@@ -26,19 +26,28 @@ export default function CamChallengePage() {
     setDone(loadDone());
   }, []);
 
+  const persist = (next: number[]) => {
+    try {
+      window.localStorage.setItem(STORAGE_KEY, JSON.stringify(next));
+    } catch {
+      /* private mode */
+    }
+    setDone(next);
+  };
+
   const toggle = (day: number) => {
-    setDone((prev) => {
-      const next = prev.includes(day) ? prev.filter((d) => d !== day) : [...prev, day];
-      try {
-        window.localStorage.setItem(STORAGE_KEY, JSON.stringify(next));
-      } catch {
-        /* private mode */
-      }
-      return next;
-    });
+    const isDone = done.includes(day);
+    if (isDone) {
+      const ok = window.confirm(`Untick Day ${String(day).padStart(2, "0")}? You can tick it again later.`);
+      if (!ok) return;
+      persist(done.filter((d) => d !== day));
+      return;
+    }
+    persist([...done, day]);
   };
 
   const reset = () => {
+    if (!window.confirm("Reset all thirty days on this device?")) return;
     try {
       window.localStorage.removeItem(STORAGE_KEY);
     } catch {
@@ -50,6 +59,7 @@ export default function CamChallengePage() {
   const pct = Math.round((done.length / days.length) * 100);
   const minutes = days.filter((d) => done.includes(d.day)).reduce((a, d) => a + d.minutes, 0);
   const nextDay = useMemo(() => days.find((d) => !done.includes(d.day))?.day ?? null, [done]);
+  const completedCount = done.length;
 
   return (
     <CamShell
@@ -69,9 +79,9 @@ export default function CamChallengePage() {
         <div className="cam-card mt-8 p-5 sm:p-6">
           <div className="flex flex-wrap items-center justify-between gap-3">
             <p className="cam-mono text-[11px] uppercase tracking-[0.2em]" style={{ color: "var(--cam-kraft)" }} aria-live="polite">
-              {done.length} / {days.length} days · {minutes} minutes of looking
+              {completedCount} / {days.length} days · {minutes} minutes of looking
             </p>
-            {done.length > 0 && (
+            {completedCount > 0 && (
               <button type="button" onClick={reset} className="cam-chip cam-lift inline-flex items-center gap-2" aria-label="Reset all progress">
                 <RotateCcw className="h-3 w-3" aria-hidden="true" /> Reset
               </button>
@@ -90,7 +100,7 @@ export default function CamChallengePage() {
           </div>
           <div className="mt-4 flex flex-wrap gap-2" aria-label="Milestones">
             {MILESTONES.map((m) => {
-              const unlocked = done.length >= m;
+              const unlocked = completedCount >= m;
               return (
                 <span key={m} className="cam-milestone" data-locked={unlocked ? "false" : "true"}>
                   {unlocked ? <Sparkles className="h-3.5 w-3.5" aria-hidden="true" /> : null}
@@ -101,24 +111,29 @@ export default function CamChallengePage() {
           </div>
           {nextDay != null && (
             <p className="cam-muted mt-4 text-sm font-semibold">
-              Up next: Day {String(nextDay).padStart(2, "0")} — scroll to the highlighted card.
+              <a href={`#day-${nextDay}`} className="underline" style={{ color: "var(--cam-coral)" }}>
+                Up next: Day {String(nextDay).padStart(2, "0")}
+              </a>
+              {" — jump to the highlighted card."}
             </p>
           )}
-          {done.length > 0 && (
-            <div className="mt-5">
-              <ShareButtons
-                compact
-                path="/challenge"
-                text={`Day ${Math.max(...done)} of CAM's 30 days of looking — one small career-exposure task done. Join me:`}
-                whatsappLabel="Share day on WhatsApp"
-                story={{
-                  kicker: "30 days of looking",
-                  headline: `Day ${String(Math.max(...done)).padStart(2, "0")}`,
-                  subline: "One small look. A wider map.",
-                }}
-              />
-            </div>
-          )}
+          <div className="mt-5">
+            <ShareButtons
+              compact
+              path="/challenge"
+              text={
+                completedCount > 0
+                  ? `I've completed ${completedCount} of CAM's 30 days of looking — one small career-exposure task at a time. Join me:`
+                  : `Starting CAM's 30 days of looking — one small career-exposure task a day. Join me:`
+              }
+              whatsappLabel="Share progress on WhatsApp"
+              story={{
+                kicker: "30 days of looking",
+                headline: completedCount > 0 ? `${completedCount} / 30 days` : "Day 01",
+                subline: "One small look. A wider map.",
+              }}
+            />
+          </div>
         </div>
 
         <ol className="mt-8 grid gap-3 sm:grid-cols-2">
@@ -126,7 +141,7 @@ export default function CamChallengePage() {
             const isDone = done.includes(d.day);
             const isNext = d.day === nextDay;
             return (
-              <li key={d.day} className="flex flex-col gap-2">
+              <li key={d.day} id={`day-${d.day}`} className="flex flex-col gap-2 scroll-mt-24">
                 <button
                   type="button"
                   onClick={() => toggle(d.day)}
@@ -141,7 +156,7 @@ export default function CamChallengePage() {
                   }
                 >
                   <span
-                    className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-full transition-colors"
+                    className="mt-0.5 flex h-11 w-11 shrink-0 items-center justify-center rounded-full transition-colors"
                     style={
                       isDone
                         ? { background: "var(--cam-teal)", color: "#FFFFFF", border: "2px solid var(--cam-ink)" }
@@ -166,19 +181,6 @@ export default function CamChallengePage() {
                     <span className={`cam-muted mt-1 block text-sm leading-relaxed ${isDone ? "opacity-50" : ""}`}>{d.task}</span>
                   </span>
                 </button>
-                {isDone && (
-                  <ShareButtons
-                    compact
-                    path="/challenge"
-                    text={`Day ${d.day} of CAM done — "${d.title}". One small look toward a wider career map:`}
-                    whatsappLabel="Share this day"
-                    story={{
-                      kicker: "30 days of looking",
-                      headline: `Day ${String(d.day).padStart(2, "0")}`,
-                      subline: "Keep going. Exposure is all you need.",
-                    }}
-                  />
-                )}
               </li>
             );
           })}

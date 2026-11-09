@@ -279,10 +279,13 @@
 /* ——— ways-in strip ——— */
 .cam-ways {
   display: grid; gap: 12px;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr;
 }
-@media (min-width: 768px) {
-  .cam-ways { grid-template-columns: repeat(4, 1fr); }
+@media (min-width: 640px) {
+  .cam-ways { grid-template-columns: 1fr 1fr; }
+}
+@media (min-width: 1024px) {
+  .cam-ways { grid-template-columns: repeat(5, 1fr); }
 }
 .cam-way {
   display: flex; flex-direction: column; gap: 6px;
@@ -349,4 +352,10 @@
 .cam-share-ig:focus-visible { outline: 3px solid #FFC94A; outline-offset: 3px; }
 @media (prefers-reduced-motion: reduce) {
   .cam-share-wa:hover, .cam-share-ig:hover { transform: none; }
+}
+
+/* stronger search placeholder contrast */
+.cam input::placeholder {
+  color: #3F6B68;
+  opacity: 0.9;
 }

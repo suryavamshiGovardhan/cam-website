@@ -79,7 +79,7 @@ export default function ShareButtons({
             title: "CAM",
             text: caption,
           });
-          setNote("Pick Instagram in the share sheet (Story, Post, Reel or DM).");
+          setNote("Share sheet open — pick Instagram. Caption includes the link.");
           return;
         } catch (err) {
           if ((err as Error)?.name === "AbortError") return;
@@ -91,8 +91,8 @@ export default function ShareButtons({
       const copied = await copyText(caption);
       setNote(
         copied
-          ? "Image downloaded. Caption with link copied — paste it in Instagram."
-          : "Image downloaded. Paste this link in Instagram: " + url,
+          ? "Downloaded story image · caption copied — open Instagram and paste."
+          : "Downloaded story image · copy this link into Instagram: " + url,
       );
     } catch {
       setNote("Could not build the story image. Try again, or copy the link from the address bar.");
@@ -120,10 +120,10 @@ export default function ShareButtons({
           onClick={shareInstagram}
           disabled={igBusy}
           className={`cam-share-ig inline-flex min-h-11 items-center justify-center gap-2 rounded-full font-extrabold ${pad}`}
-          aria-label="Share to Instagram"
+          aria-label="Download Instagram story image and copy caption"
         >
           <InstagramIcon />
-          {igBusy ? "Preparing…" : "Share to Instagram"}
+          {igBusy ? "Preparing image…" : "Download image + copy caption"}
         </button>
       </div>
       {note && (

@@ -24,7 +24,7 @@ function useSwipe(onLeft: () => void, onRight: () => void) {
   };
 }
 
-export function Deck({ slides = SLIDES, label = "CAM · school pitch", sub = "Hyderabad · Classes 8–12 · founders & principals", extra }: { slides?: Slide[]; label?: string; sub?: string; extra?: React.ReactNode }) {
+export function Deck({ slides = SLIDES, label = "CAM · school pitch", sub = "Hyderabad · Classes 8–12 · founders & principals", extra, seoTitle = "CAM school pitch (private)", seoPath = "/admin" }: { slides?: Slide[]; label?: string; sub?: string; extra?: React.ReactNode; seoTitle?: string; seoPath?: string }) {
   const SL = slides;
   const [notesOpen, setNotesOpen] = useState(false);
   const [i, setI] = useState(0);
@@ -94,10 +94,10 @@ export function Deck({ slides = SLIDES, label = "CAM · school pitch", sub = "Hy
       {...swipe}
     >
       <SEOHead
-        title="CAM school pitch (private)"
-        description="Private school-pitch deck"
+        title={seoTitle}
+        description="Private CAM deck"
         noindex
-        canonicalUrl="https://suryavamshigovardhan.github.io/cam-website/admin"
+        canonicalUrl={`https://suryavamshigovardhan.github.io/cam-website${seoPath}`}
       />
 
       {/* top bar */}

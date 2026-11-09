@@ -21,7 +21,7 @@ export function SpeechBubbles() {
       </g>
       <g data-anim style={{ animation: "camva-pop 700ms cubic-bezier(.34,1.56,.64,1) 600ms both" }}>
         <path d="M60 178 a24 24 0 0 1 24 -24 h150 a24 24 0 0 1 24 24 v30 a24 24 0 0 1 -24 24 h-92 l-24 22 v-22 h-34 a24 24 0 0 1 -24 -24 z" fill="var(--art-c)" stroke="var(--art-d)" strokeWidth="4" />
-        <text x="159" y="200" textAnchor="middle" fill="var(--art-d)" fontSize="17" fontWeight="800" fontFamily={FONT}>…or 2,000 others?</text>
+        <text x="159" y="200" textAnchor="middle" fill="var(--art-d)" fontSize="17" fontWeight="800" fontFamily={FONT}>…or 1,000 others?</text>
       </g>
       <circle data-anim cx="340" cy="190" r="7" fill="var(--art-b)" style={{ animation: "camva-drift 4s ease-in-out infinite" }} />
       <circle data-anim cx="366" cy="164" r="5" fill="var(--art-a)" style={{ animation: "camva-drift 5s ease-in-out 600ms infinite" }} />
@@ -39,7 +39,7 @@ export function GapCanyon() {
       </g>
       <path d="M20 250 v-120 a30 30 0 0 1 30 -30 h100 a30 30 0 0 1 30 30 v120 z" fill="var(--art-c)" stroke="var(--art-d)" strokeWidth="4" />
       <path d="M380 250 v-74 a26 26 0 0 0 -26 -26 h-58 a26 26 0 0 0 -26 26 v74 z" fill="var(--art-a)" stroke="var(--art-d)" strokeWidth="4" />
-      <text x="100" y="180" textAnchor="middle" fill="var(--art-d)" fontSize="13" fontWeight="800" fontFamily={FONT}>2,000+ jobs</text>
+      <text x="100" y="180" textAnchor="middle" fill="var(--art-d)" fontSize="13" fontWeight="800" fontFamily={FONT}>1,058 jobs</text>
       <text x="325" y="215" textAnchor="middle" fill="var(--art-d)" fontSize="13" fontWeight="800" fontFamily={FONT}>the 6 you know</text>
       <circle data-anim cx="352" cy="60" r="6" fill="var(--art-b)" style={{ animation: "camva-blink 2.4s ease-in-out infinite" }} />
       <circle data-anim cx="70" cy="52" r="5" fill="var(--art-a)" style={{ animation: "camva-blink 3s ease-in-out 500ms infinite" }} />

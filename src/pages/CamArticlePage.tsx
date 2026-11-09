@@ -57,7 +57,7 @@ export default function CamArticlePage() {
         <h1 className="cam-serif mt-5 text-[clamp(34px,7vw,60px)]">{article.title}</h1>
         <p className="cam-muted mt-5 text-lg leading-relaxed">{article.dek}</p>
         <p className="cam-mono mt-4 cam-dim">
-          {article.readingMinutes} min read · {article.wordCount.toLocaleString("en-IN")} words
+          {article.readingMinutes} min read · {article.wordCount.toLocaleString("en-IN")} words · {article.readingMinutes <= 3 ? "Short read" : "Deep read"}
         </p>
         <figure className="mt-10">
           <div style={{ border: "2px solid var(--cam-ink)", borderRadius: "1.25rem", boxShadow: "6px 6px 0 var(--cam-ink)", overflow: "hidden" }}>

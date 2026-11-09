@@ -251,7 +251,7 @@ const S: Slide[] = [
       </>
     ),
     notes:
-      "Thank you so much. You were amazing. If you want to keep exploring, go to the CAM website — there's a job atlas with more than two thousand careers, the guessing game, and a thirty-day challenge. Follow @cam.voyce on Instagram for a new career every day. One important thing: CAM doesn't give personal career advice. For big decisions, please talk to your school counsellor, your teachers and your family. My only job today was to make your menu bigger. Keep looking!",
+      "Thank you so much. You were amazing. If you want to keep exploring, go to the CAM website — there's a job atlas with 1,058 careers across 87 industries, the guessing game, and a thirty-day challenge. Follow @cam.voyce on Instagram for a new career every day. One important thing: CAM doesn't give personal career advice. For big decisions, please talk to your school counsellor, your teachers and your family. My only job today was to make your menu bigger. Keep looking!",
   },
 ];
 
@@ -262,6 +262,8 @@ export default function AdminSessionPage() {
         slides={S}
         label="CAM · student session"
         sub="Classes 8–10 · 40–60 min · press N for script"
+        seoTitle="CAM student session (private)"
+        seoPath="/admin/session"
         extra={
           <a href="/cam-website/admin" className="cam-btn cam-btn-ghost" style={{ minHeight: 40, padding: "8px 14px" }}>
             ← Pitch deck

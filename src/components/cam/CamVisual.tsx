@@ -71,7 +71,7 @@ export function StepPath({ steps, door = false }: { steps: { title: string; body
 
 export function GapDiagram() {
   return (
-    <svg viewBox="0 0 660 320" className="w-full" role="img" aria-label="The Exposure Gap: the distance between careers that exist and careers you have been shown">
+    <svg viewBox="0 0 660 320" className="w-full" role="img" aria-label="The Knowing Gap: the distance between careers that exist and careers you have been shown">
       <rect x="40" y="110" width="210" height="170" rx="20" fill="var(--cam-teal)" />
       <rect x="40" y="110" width="210" height="170" rx="20" fill="none" stroke="var(--cam-ink)" strokeWidth="3" />
       <rect x="410" y="180" width="210" height="100" rx="20" fill="var(--cam-mint)" />
@@ -79,7 +79,7 @@ export function GapDiagram() {
       <circle cx="515" cy="150" r="10" fill="var(--cam-ink)" />
       <rect x="508" y="162" width="14" height="18" rx="6" fill="var(--cam-ink)" />
       <path d="M 250 130 Q 330 40 410 195" fill="none" stroke="var(--cam-ink)" strokeWidth="2.5" strokeDasharray="7 9" />
-      <text x="330" y="80" textAnchor="middle" fill="var(--cam-coral)" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontSize: 13, fontWeight: 800 }}>The Exposure Gap</text>
+      <text x="330" y="80" textAnchor="middle" fill="var(--cam-coral)" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontSize: 13, fontWeight: 800 }}>The Knowing Gap</text>
       <text x="145" y="300" textAnchor="middle" fill="var(--cam-muted)" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontSize: 11, fontWeight: 700 }}>CAREERS THAT EXIST</text>
       <text x="515" y="300" textAnchor="middle" fill="var(--cam-muted)" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontSize: 11, fontWeight: 700 }}>CAREERS YOU'VE BEEN SHOWN</text>
     </svg>
@@ -297,12 +297,13 @@ export function ThreeLines() {
 export function PiecesRow() {
   const pieces = [
     { title: "The Talk", to: "/articles/the-question-you-were-asked-at-ten", body: "Why the usual menu is a cage with six windows." },
-    { title: "The Atlas", to: "/articles/inside-the-atlas-88-industries", body: "Strange, real, paid work — searchable by hand." },
+    { title: "The Atlas", to: "/articles/inside-the-atlas-87-industries", body: "1,058 jobs across 87 industries — searchable." },
     { title: "The Game", to: "/play", body: "Ten clues from real Tuesdays. Guess the job." },
+    { title: "Six lenses", to: "/fit", body: "Passion, skill, market, lifestyle, purpose, growth." },
     { title: "Thirty days of looking", to: "/challenge", body: "A month of small exposures, one page a day." },
   ];
   return (
-    <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+    <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
       {pieces.map((p) => (
         <Link key={p.title} to={p.to} className="cam-tile group p-5">
           <p className="cam-serif text-xl leading-tight">{p.title}</p>

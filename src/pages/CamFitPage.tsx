@@ -8,7 +8,10 @@ import { cam } from "@/data/cam";
 interface FitOption { id: string; label: string }
 interface FitQuestion { id: string; title: string; prompt: string; options: FitOption[] }
 
-const questions = cam.source.fitQuestions as unknown as FitQuestion[];
+const ORDER = ["passion", "skill", "market", "place", "purpose", "growth"];
+const questions = [...(cam.source.fitQuestions as unknown as FitQuestion[])].sort(
+  (a, b) => ORDER.indexOf(a.id) - ORDER.indexOf(b.id),
+);
 
 export default function CamFitPage() {
   const [step, setStep] = useState(0);
@@ -45,9 +48,9 @@ export default function CamFitPage() {
 
         <div className="mt-16 border-t pt-12" style={{ borderColor: "var(--cam-line)" }}>
           <p className="cam-kicker">The mirror</p>
-          <h2 className="cam-serif mt-3 text-3xl sm:text-4xl">Four questions. No score. No verdict.</h2>
+          <h2 className="cam-serif mt-3 text-3xl sm:text-4xl">Six questions. No score. No verdict.</h2>
           <p className="cam-muted mt-3 max-w-xl leading-relaxed">
-            This is a mirror, not a test. It just shows you what you leaned toward today.
+            One short reflection for each lens. This is a mirror, not a test — it just shows what you leaned toward today.
           </p>
 
           {!finished ? (

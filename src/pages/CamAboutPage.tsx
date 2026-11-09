@@ -15,13 +15,13 @@ export default function CamAboutPage() {
         <h1 className="cam-serif mt-4 max-w-3xl text-[38px] leading-[1.05] sm:text-5xl">{cam.meta.tagline}</h1>
         <p className="cam-muted mt-5 max-w-2xl text-lg leading-relaxed">
           CAM stands for Career Advisory Movement. It began as a keynote for Classes 8 to 12 and grew into a reading series,
-          an atlas, a game and a month of looking. The promise is the same in every part: <strong>not a career — a wider map.</strong>
+          an atlas, a game, six lenses and a month of looking. Advisory means we widen options — we don't tell you what to choose. The promise is the same in every part: <strong>not a career — a wider map.</strong>
         </p>
 
         <div className="mt-12"><ParentTrust /></div>
 
         <div className="mt-12">
-          <p className="cam-kicker">The four parts</p>
+          <p className="cam-kicker">The five parts</p>
           <div className="mt-4"><PiecesRow /></div>
         </div>
 

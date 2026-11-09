@@ -27,7 +27,7 @@ export const CAM_INTERACTIVE: Record<string, InteractiveBlock[]> = {
       note: "Ten more clues are waiting in the game.",
     },
   ],
-  "the-exposure-gap": [
+  "the-knowing-gap": [
     {
       type: "mythfact",
       heading: "Two flips, one gap",

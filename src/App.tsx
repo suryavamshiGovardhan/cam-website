@@ -33,6 +33,8 @@ export default function App() {
     <Suspense fallback={<Fallback />}>
       <Routes>
         <Route path="/" element={<CamHubPage />} />
+        <Route path="/articles/the-exposure-gap" element={<Navigate to="/articles/the-knowing-gap" replace />} />
+        <Route path="/articles/inside-the-atlas-88-industries" element={<Navigate to="/articles/inside-the-atlas-87-industries" replace />} />
         <Route path="/articles/:slug" element={<CamArticlePage />} />
         <Route path="/talk" element={<CamTalkPage />} />
         <Route path="/atlas" element={<CamAtlasPage />} />

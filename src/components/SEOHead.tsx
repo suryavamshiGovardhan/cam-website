@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { camUrl } from "@/lib/site";
 
 interface SEOHeadProps {
   title?: string;
@@ -12,22 +13,23 @@ interface SEOHeadProps {
 
 const DEFAULT_TITLE = "CAM — Exposure Is All You Need";
 const DEFAULT_DESCRIPTION =
-  "CAM, the Career Advisory Movement — an initiative of VOYCE. Career-exposure for Classes 8–12.";
+  "CAM, the Career Advisory Movement — an initiative of VOYCE. Career-exposure for Classes 8–12: 1,058 jobs across 87 industries.";
 const DEFAULT_KEYWORDS =
-  "CAM, Career Advisory Movement, career exposure, careers for students, VOYCE, @cam.voyce";
-const SITE = "https://suryavamshigovardhan.github.io/cam-website";
+  "CAM, Career Advisory Movement, career exposure, careers for students, VOYCE, @cam.voyce, Knowing Gap";
+const DEFAULT_OG = camUrl("/og-image.jpg");
 
 export function SEOHead({
   title,
   description = DEFAULT_DESCRIPTION,
   keywords = DEFAULT_KEYWORDS,
-  ogImage,
+  ogImage = DEFAULT_OG,
   ogType = "website",
   canonicalUrl,
   noindex = false,
 }: SEOHeadProps) {
   const fullTitle = title ? (title.includes("CAM") ? title : `${title} | CAM`) : DEFAULT_TITLE;
-  const currentUrl = canonicalUrl || (typeof window !== "undefined" ? window.location.href : SITE);
+  const currentUrl = canonicalUrl || (typeof window !== "undefined" ? window.location.href : camUrl("/"));
+  const image = ogImage || DEFAULT_OG;
 
   useEffect(() => {
     document.title = fullTitle;
@@ -47,13 +49,16 @@ export function SEOHead({
     updateMetaTag("keywords", keywords);
     updateMetaTag("og:title", fullTitle, true);
     updateMetaTag("og:description", description, true);
-    if (ogImage) updateMetaTag("og:image", ogImage, true);
+    updateMetaTag("og:image", image, true);
+    updateMetaTag("og:image:width", "1200", true);
+    updateMetaTag("og:image:height", "630", true);
     updateMetaTag("og:url", currentUrl, true);
     updateMetaTag("og:type", ogType, true);
     updateMetaTag("og:site_name", "CAM", true);
     updateMetaTag("twitter:card", "summary_large_image");
     updateMetaTag("twitter:title", fullTitle);
     updateMetaTag("twitter:description", description);
+    updateMetaTag("twitter:image", image);
     updateMetaTag("robots", noindex ? "noindex, nofollow" : "index, follow");
 
     let canonicalLink = document.querySelector('link[rel="canonical"]') as HTMLLinkElement | null;
@@ -63,7 +68,7 @@ export function SEOHead({
       document.head.appendChild(canonicalLink);
     }
     canonicalLink.setAttribute("href", currentUrl);
-  }, [fullTitle, description, keywords, ogImage, ogType, currentUrl, noindex]);
+  }, [fullTitle, description, keywords, image, ogType, currentUrl, noindex]);
 
   return null;
 }

@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import {
   ArrowRight, Film, Fingerprint, Gamepad2, GraduationCap, Headphones,
   Leaf, Microscope, Rocket, Sparkles, Stethoscope, CalendarDays,
@@ -26,7 +26,22 @@ const cardVariant = {
 function WordReveal({
   text, highlightIndex = 0, animateOnMount = false, className = "",
 }: { text: string; highlightIndex?: number; animateOnMount?: boolean; className?: string }) {
+  const reduce = useReducedMotion();
   const words = text.split(" ");
+  if (reduce) {
+    return (
+      <span className={`inline-block ${className}`}>
+        {words.map((w, i) => (
+          <span key={i} className="inline-block whitespace-nowrap">
+            {i === highlightIndex
+              ? <span className="rounded-xl px-3" style={{ background: "var(--cam-sun)", color: "var(--cam-ink)" }}>{w}</span>
+              : w}
+            {i < words.length - 1 ? " " : ""}
+          </span>
+        ))}
+      </span>
+    );
+  }
   const inner = (
     <motion.span
       className={`inline-block ${className}`}
@@ -39,7 +54,7 @@ function WordReveal({
           {i === highlightIndex
             ? <span className="rounded-xl px-3" style={{ background: "var(--cam-sun)", color: "var(--cam-ink)" }}>{w}</span>
             : w}
-          {i < words.length - 1 ? "\u00A0" : ""}
+          {i < words.length - 1 ? " " : ""}
         </motion.span>
       ))}
     </motion.span>
@@ -241,7 +256,7 @@ export default function CamHubPage() {
   return (
     <CamShell
       title="CAM | Exposure Is All You Need"
-      description="CAM is VOYCE's career-exposure movement for Classes 8–12: the talk, an atlas of 2,000+ real jobs, a guessing game, six lenses for choosing and thirty days of looking."
+      description="CAM is VOYCE's career-exposure movement for Classes 8–12: the talk, an atlas of 1,058 jobs across 87 industries, a guessing game, six lenses and thirty days of looking."
       canonical="/"
     >
       {/* ——— HERO ——— */}
@@ -267,14 +282,14 @@ export default function CamHubPage() {
               className="mt-5 text-lg font-semibold sm:text-2xl"
               style={{ color: "var(--cam-sun)", fontFamily: "'Bricolage Grotesque', sans-serif" }}
             >
-              2,000+ real jobs. Which one have you never heard of?
+              1,058 jobs across 87 industries. Which one have you never heard of?
             </motion.p>
             <motion.p
               initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 1.0, duration: 0.45, ease: EASE }}
               className="mx-auto mt-3 max-w-xl text-sm font-semibold leading-relaxed sm:text-base"
               style={{ color: "var(--cam-mint)" }}
             >
-              Free career-exposure for Classes 8–12. No login. Pick a way in — start with the game if you want something fun first.
+              Free for Classes 8–12. No login. Advisory means we widen options — we don't tell you what to choose.
             </motion.p>
             <motion.div
               initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 1.1, duration: 0.5, ease: EASE }}
@@ -306,7 +321,7 @@ export default function CamHubPage() {
         <div className="flex flex-wrap items-end justify-between gap-3">
           <div>
             <p className="cam-kicker">Ways in</p>
-            <h2 id="ways-in-title" className="cam-serif mt-2 text-2xl sm:text-3xl">Four doors. Same map.</h2>
+            <h2 id="ways-in-title" className="cam-serif mt-2 text-2xl sm:text-3xl">Five ways in. Same map.</h2>
           </div>
           <Link to="/about#for-parents" className="cam-chip">Parents: what is CAM?</Link>
         </div>
@@ -319,12 +334,17 @@ export default function CamHubPage() {
           <Link to="/atlas" className="cam-way">
             <span className="cam-pill" style={{ width: "fit-content" }}>Jobs</span>
             <span className="cam-way-title">Search the atlas</span>
-            <span className="cam-way-hint">{jobCount.toLocaleString("en-IN")}+ careers school rarely names.</span>
+            <span className="cam-way-hint">{jobCount.toLocaleString("en-IN")} careers across 87 industries.</span>
           </Link>
           <Link to="/talk" className="cam-way">
             <span className="cam-pill cam-pill-mint" style={{ width: "fit-content" }}>Talk</span>
             <span className="cam-way-title">Walk the keynote</span>
             <span className="cam-way-hint">The talk, as slides you can click through.</span>
+          </Link>
+          <Link to="/fit" className="cam-way">
+            <span className="cam-pill cam-pill-mint" style={{ width: "fit-content" }}>Lenses</span>
+            <span className="cam-way-title">Run six tests</span>
+            <span className="cam-way-hint">Passion, skill, market, lifestyle, purpose, growth.</span>
           </Link>
           <Link to="/challenge" className="cam-way">
             <span className="cam-pill" style={{ width: "fit-content", background: "var(--cam-teal)" }}>30 days</span>
@@ -348,7 +368,7 @@ export default function CamHubPage() {
             story={{
               kicker: "Career Advisory Movement",
               headline: "Exposure is all you need",
-              subline: "2,000+ real jobs. Free for Classes 8–12.",
+              subline: "1,058 jobs · 87 industries. Free for Classes 8–12.",
             }}
           />
         </div>
@@ -376,24 +396,42 @@ export default function CamHubPage() {
             <div>
               <ul className="space-y-3 text-[15px] font-semibold" style={{ color: "var(--cam-mint)" }}>
                 <li className="flex items-center gap-3"><CalendarDays className="h-5 w-5 shrink-0" aria-hidden="true" /> One 30-day exposure series</li>
-                <li className="flex items-center gap-3"><Sparkles className="h-5 w-5 shrink-0" aria-hidden="true" /> Free to start</li>
+                <li className="flex items-center gap-3"><Sparkles className="h-5 w-5 shrink-0" aria-hidden="true" /> Free</li>
                 <li className="flex items-center gap-3"><GraduationCap className="h-5 w-5 shrink-0" aria-hidden="true" /> Built for Classes 8–12</li>
               </ul>
-              <a
-                href={`mailto:${cam.meta.email}?subject=${encodeURIComponent("Bring CAM to our school")}`}
-                className="cam-btn cam-btn-sun mt-6 inline-flex"
-              >
-                Bring CAM to your school <ArrowRight className="h-4 w-4" aria-hidden="true" />
-              </a>
+              <div className="mt-6 flex flex-wrap gap-3">
+                <a
+                  href={`mailto:${cam.meta.email}?subject=${encodeURIComponent("Bring CAM to our school")}`}
+                  className="cam-btn cam-btn-sun inline-flex"
+                >
+                  Email us <ArrowRight className="h-4 w-4" aria-hidden="true" />
+                </a>
+                <a
+                  href={`https://wa.me/?text=${encodeURIComponent("Hi — I'd like to bring CAM (Career Advisory Movement) to our school. " + cam.meta.email)}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="cam-btn inline-flex"
+                  style={{ background: "#25D366", color: "#FFFFFF" }}
+                >
+                  WhatsApp
+                </a>
+                <a
+                  href="https://voyce-x.lovable.app/schools"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="cam-btn cam-btn-ghost inline-flex"
+                  style={{ background: "#FFFFFF" }}
+                >
+                  School form
+                </a>
+              </div>
             </div>
           </div>
         </div>
 
         {/* end line */}
         <div className="mt-20 text-center">
-          <p className="cam-serif text-[clamp(34px,7vw,72px)]">
-            <WordReveal text="EXPOSURE IS ALL YOU NEED." highlightIndex={0} />
-          </p>
+          <p className="cam-muted text-sm font-semibold">Ready when you are — start with Play, or the guided route below.</p>
         </div>
       </section>
 
@@ -402,6 +440,16 @@ export default function CamHubPage() {
         <div className="flex items-end justify-between gap-4">
           <p className="cam-kicker">The reading series</p>
           <p className="cam-mono cam-dim">{articles.length} articles</p>
+        </div>
+        <div className="cam-card mt-5 p-5">
+          <p className="cam-kicker">First time here?</p>
+          <p className="cam-serif mt-2 text-xl leading-tight">A short guided route for students</p>
+          <ol className="cam-muted mt-3 list-decimal space-y-1 pl-5 text-sm leading-relaxed">
+            <li><Link to="/articles/the-question-you-were-asked-at-ten" className="font-bold underline" style={{ color: "var(--cam-ink)" }}>The question you were asked at ten</Link> (short)</li>
+            <li><Link to="/articles/the-knowing-gap" className="font-bold underline" style={{ color: "var(--cam-ink)" }}>The Knowing Gap</Link> (short)</li>
+            <li><Link to="/play" className="font-bold underline" style={{ color: "var(--cam-ink)" }}>Play Guess the Job</Link></li>
+            <li><Link to="/atlas" className="font-bold underline" style={{ color: "var(--cam-ink)" }}>Search the atlas</Link></li>
+          </ol>
         </div>
         <div className="mt-5 flex flex-wrap gap-2" role="group" aria-label="Filter by category">
           {["All", ...cam.categories].map((c) => (
@@ -426,7 +474,7 @@ export default function CamHubPage() {
               <div className="flex flex-col p-6 sm:p-8">
                 <div className="flex items-center gap-3">
                   <span className="cam-pill">Start here</span>
-                  <span className="cam-mono cam-dim">{String(featured.order).padStart(2, "0")} · {featured.category} · {featured.readingMinutes} min</span>
+                  <span className="cam-mono cam-dim">{String(featured.order).padStart(2, "0")} · {featured.category} · {featured.readingMinutes} min · {featured.readingMinutes <= 3 ? "Short read" : "Deep read"}</span>
                 </div>
                 <h2 className="cam-serif mt-4 text-3xl leading-tight sm:text-4xl">{featured.title}</h2>
                 <p className="cam-muted mt-3 text-base leading-relaxed">{featured.dek}</p>
@@ -448,7 +496,7 @@ export default function CamHubPage() {
                 <div className="flex flex-1 flex-col p-5">
                   <div className="flex items-center justify-between gap-2">
                     <span className="cam-pill">{a.category}</span>
-                    <span className="cam-mono cam-dim">{String(a.order).padStart(2, "0")} · {a.readingMinutes} min</span>
+                    <span className="cam-mono cam-dim">{String(a.order).padStart(2, "0")} · {a.readingMinutes} min · {a.readingMinutes <= 3 ? "Short" : "Deep"}</span>
                   </div>
                   <h2 className="cam-serif mt-3 text-2xl leading-tight">{a.title}</h2>
                   <p className="cam-muted mt-2 flex-1 text-sm leading-relaxed">{a.dek}</p>
@@ -464,8 +512,8 @@ export default function CamHubPage() {
         className="border-y-2 px-5 py-12 text-center"
         style={{ borderColor: "var(--cam-ink)", background: "var(--cam-teal)", color: "#FFFFFF" }}
       >
-        <p className="cam-serif text-[clamp(26px,5vw,48px)]" style={{ color: "#FFFFFF" }}>
-          EXPOSURE IS ALL YOU NEED.
+        <p className="cam-serif text-[clamp(22px,4vw,36px)]" style={{ color: "#FFFFFF" }}>
+          Keep looking. The map is bigger than the menu.
         </p>
         <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
           <Link to="/play" className="cam-btn cam-btn-sun">

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { ArrowRight, Lightbulb, RotateCcw, Sparkles } from "lucide-react";
 import CamShell from "@/components/cam/CamShell";
@@ -13,15 +13,28 @@ interface Round {
   options: string[];
 }
 
-const rounds = cam.source.guessGame as unknown as Round[];
+function shuffle<T>(arr: T[]): T[] {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+function buildDeck(): Round[] {
+  const base = cam.source.guessGame as unknown as Round[];
+  return shuffle(base).map((r) => ({ ...r, options: shuffle(r.options) }));
+}
 
 export default function CamPlayPage() {
+  const [deck, setDeck] = useState<Round[]>(() => buildDeck());
   const [i, setI] = useState(0);
   const [picked, setPicked] = useState<string | null>(null);
   const [score, setScore] = useState(0);
   const [done, setDone] = useState(false);
 
-  const round = rounds[i];
+  const round = deck[i];
   const revealed = picked !== null;
 
   const pick = (o: string) => {
@@ -31,25 +44,29 @@ export default function CamPlayPage() {
   };
 
   const next = () => {
-    if (i + 1 < rounds.length) {
+    if (i + 1 < deck.length) {
       setI(i + 1);
       setPicked(null);
     } else setDone(true);
   };
 
   const restart = () => {
+    setDeck(buildDeck());
     setI(0);
     setPicked(null);
     setScore(0);
     setDone(false);
   };
 
-  const verdict =
-    score >= 8
-      ? "The world was already interesting. You just had names for it."
-      : score >= 5
-        ? "Half the room had no idea either. That gap is the point."
-        : "Wrong answers are useful — they prove the gap. That's what CAM is for.";
+  const verdict = useMemo(
+    () =>
+      score >= 8
+        ? "The world was already interesting. You just had names for it."
+        : score >= 5
+          ? "Half the room had no idea either. That gap is the point."
+          : "Wrong answers are useful — they prove the Knowing Gap. That's what CAM is for.",
+    [score],
+  );
 
   const cheer =
     score === 0 && i === 0
@@ -75,7 +92,7 @@ export default function CamPlayPage() {
           <div className="mt-10">
             <div className="flex flex-wrap items-center justify-between gap-3">
               <p className="cam-mono text-[11px] uppercase tracking-[0.2em] cam-dim">
-                Round {i + 1} / {rounds.length}
+                Round {i + 1} / {deck.length}
               </p>
               <p
                 className="cam-mono inline-flex min-h-9 items-center gap-2 rounded-full px-3 text-[11px] uppercase tracking-[0.16em]"
@@ -85,8 +102,15 @@ export default function CamPlayPage() {
                 <Sparkles className="h-3.5 w-3.5" aria-hidden="true" /> Score {score}
               </p>
             </div>
-            <div className="cam-track mt-3" role="progressbar" aria-valuemin={0} aria-valuemax={rounds.length} aria-valuenow={i + (revealed ? 1 : 0)} aria-label="Game progress">
-              {rounds.map((_, k) => (
+            <div
+              className="cam-track mt-3"
+              role="progressbar"
+              aria-valuemin={0}
+              aria-valuemax={deck.length}
+              aria-valuenow={i + (revealed ? 1 : 0)}
+              aria-label="Game progress"
+            >
+              {deck.map((_, k) => (
                 <span key={k} data-on={k <= i ? "true" : "false"} data-done={k < i || (k === i && revealed) ? "true" : undefined} />
               ))}
             </div>
@@ -94,8 +118,10 @@ export default function CamPlayPage() {
               {cheer}
             </p>
 
-            <div key={round.answer} className="cam-card cam-slide-in mt-6 p-6 sm:p-8">
-              <p className="cam-kicker">Clue {i + 1} / {rounds.length}</p>
+            <div key={round.answer + i} className="cam-card cam-slide-in mt-6 p-6 sm:p-8">
+              <p className="cam-kicker">
+                Clue {i + 1} / {deck.length}
+              </p>
               <p className="cam-serif mt-4 text-[clamp(20px,3vw,26px)] leading-snug">“{round.clue}”</p>
 
               <div className="mt-6 grid gap-3 sm:grid-cols-2" role="group" aria-label="Choose an answer">
@@ -117,13 +143,13 @@ export default function CamPlayPage() {
                 <div className="cam-slide-in mt-6 rounded-2xl p-5" style={{ background: "var(--cam-ink2)", boxShadow: "var(--cam-shadow-border)" }} aria-live="polite">
                   <p className="cam-kicker inline-flex items-center gap-2">
                     <Lightbulb className="h-3.5 w-3.5" aria-hidden="true" />{" "}
-                    {picked === round.answer ? "Yes — " : "Close — "}
+                    {picked === round.answer ? "Yes — " : "It was — "}
                     {round.answer}
                   </p>
                   <p className="cam-muted mt-3 text-sm leading-relaxed">{round.why}</p>
                   <p className="cam-dim mt-2 text-sm italic">Hint for next time: {round.hint}</p>
                   <button type="button" onClick={next} className="cam-btn cam-lift mt-5">
-                    {i + 1 < rounds.length ? "Next clue" : "See your score"} <ArrowRight className="h-4 w-4" aria-hidden="true" />
+                    {i + 1 < deck.length ? "Next clue" : "See your score"} <ArrowRight className="h-4 w-4" aria-hidden="true" />
                   </button>
                 </div>
               )}
@@ -133,7 +159,7 @@ export default function CamPlayPage() {
           <div className="cam-card cam-slide-in mt-10 p-8 text-center sm:p-12">
             <p className="cam-kicker">Final score</p>
             <p className="cam-serif mt-4 text-7xl leading-none" style={{ color: "var(--cam-coral)" }} aria-live="polite">
-              {score} / {rounds.length}
+              {score} / {deck.length}
             </p>
             <p className="cam-muted mx-auto mt-6 max-w-md text-lg leading-relaxed">{verdict}</p>
             <div className="mt-8 flex flex-wrap justify-center gap-3">
@@ -147,11 +173,11 @@ export default function CamPlayPage() {
             <div className="mt-8 flex justify-center">
               <ShareButtons
                 path="/play"
-                text={`I scored ${score}/${rounds.length} on CAM Guess the Job — careers school never named. Try it:`}
+                text={`I scored ${score}/${deck.length} on CAM Guess the Job — careers school never named. Try it:`}
                 whatsappLabel="Share score on WhatsApp"
                 story={{
                   kicker: "Guess the Job",
-                  headline: `${score} / ${rounds.length}`,
+                  headline: `${score} / ${deck.length}`,
                   subline: "I just played CAM. Beat my score?",
                 }}
               />

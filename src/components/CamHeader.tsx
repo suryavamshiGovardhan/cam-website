@@ -6,7 +6,7 @@ import { cam } from "@/data/cam";
 const NAV = [
   { label: "Home", to: "/", hint: "Start here" },
   { label: "Talk", to: "/talk", hint: "The keynote, slide by slide" },
-  { label: "Jobs", to: "/atlas", hint: "Search 2,000+ real careers" },
+  { label: "Jobs", to: "/atlas", hint: "Search 1,058 careers · 87 industries" },
   { label: "Play", to: "/play", hint: "Guess the job — 10 clues" },
   { label: "Lenses", to: "/fit", hint: "Six ways to choose" },
   { label: "30 days", to: "/challenge", hint: "One small task a day" },
@@ -57,7 +57,7 @@ export default function CamHeader() {
             CAM
           </span>
           <span className="text-[10px] font-bold uppercase tracking-wide" style={{ color: "#FF6B5B" }}>
-            {cam.meta.tagline}
+            Career Advisory Movement
           </span>
         </Link>
 

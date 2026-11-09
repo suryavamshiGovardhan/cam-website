@@ -109,7 +109,7 @@ export const SLIDES: Slide[] = [
         <div className="mt-8 grid gap-3 sm:grid-cols-2">
           {[
             ["The Talk", "Exposure Is All You Need — keynote as slides & articles."],
-            ["The Atlas", "2,000+ real jobs across dozens of industries — searchable."],
+            ["The Atlas", "1,058 real jobs across 87 industries — searchable."],
             ["The Game", "Guess the Job — ten clues from real Tuesdays."],
             ["30 days", "One small looking task a day. No login required."],
           ].map(([t, d]) => (

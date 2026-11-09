@@ -161,26 +161,33 @@ export default function CamTalkPage() {
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === "ArrowRight" || e.key === " ") { e.preventDefault(); go(1); }
-      if (e.key === "ArrowLeft") { e.preventDefault(); go(-1); }
+      const tag = (e.target as HTMLElement)?.tagName;
+      if (tag === "INPUT" || tag === "TEXTAREA" || (e.target as HTMLElement)?.isContentEditable) return;
+      if (e.key === "ArrowRight" || e.key === "PageDown") { e.preventDefault(); go(1); }
+      if (e.key === "ArrowLeft" || e.key === "PageUp") { e.preventDefault(); go(-1); }
+      // Space intentionally not bound — it scrolls the page and must stay available.
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
   }, [go]);
 
-  useEffect(() => { window.scrollTo(0, 0); }, [i]);
+  useEffect(() => {
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    window.scrollTo({ top: 0, behavior: reduce ? "auto" : "smooth" });
+  }, [i]);
 
   const progress = ((i + 1) / scenes.length) * 100;
 
   return (
     <CamShell
       title="The Talk — Exposure Is All You Need | CAM"
-      description="The CAM keynote as slides: forty-three quiet scenes on the exposure gap, the atlas, the game, the six lenses and thirty days of looking."
+      description="The CAM keynote as slides: quiet scenes on the Knowing Gap, the atlas, the game, the six lenses and thirty days of looking."
       canonical="/talk"
     >
       <section className="mx-auto max-w-4xl px-5 pb-20 pt-10 sm:pt-14">
-        <div className="flex items-center justify-between gap-4">
-          <p className="cam-kicker">Exposure Is All You Need</p>
+        <h1 className="cam-serif text-[clamp(28px,5vw,44px)] leading-tight">The Talk — Exposure Is All You Need</h1>
+        <div className="mt-4 flex items-center justify-between gap-4">
+          <p className="cam-kicker">Keynote, slide by slide</p>
           <p className="cam-mono text-[11px] tracking-[0.2em] cam-dim">
             {scene.section} · {String(i + 1).padStart(2, "0")} / {scenes.length}
           </p>
@@ -199,7 +206,7 @@ export default function CamTalkPage() {
               <ArrowLeft className="h-4 w-4" aria-hidden="true" /> Previous
             </button>
             <span className="cam-mono hidden items-center gap-2 text-[11px] tracking-[0.2em] cam-dim sm:inline-flex">
-              <Keyboard className="h-3.5 w-3.5" aria-hidden="true" /> Arrow keys work
+              <Keyboard className="h-3.5 w-3.5" aria-hidden="true" /> ← → keys work · Space scrolls
             </span>
             {i < scenes.length - 1 ? (
               <button type="button" onClick={() => go(1)} className="cam-btn cam-lift">

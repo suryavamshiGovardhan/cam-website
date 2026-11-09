@@ -17,8 +17,8 @@ export default function ParentTrust({ id = "for-parents" }: { id?: string }) {
     },
     {
       Icon: Gift,
-      title: "Free to start",
-      body: "Built for Classes 8–12 and free to start. Progress on the thirty-day challenge stays on this device.",
+      title: "Free",
+      body: "Built for Classes 8–12 and free. Progress on the thirty-day challenge stays on this device.",
     },
     {
       Icon: HeartHandshake,
@@ -39,7 +39,7 @@ export default function ParentTrust({ id = "for-parents" }: { id?: string }) {
         A wider map — not pressure to decide today.
       </h2>
       <p className="cam-muted mt-3 max-w-2xl text-base leading-relaxed">
-        Short version: CAM helps students notice more real jobs before subject choices get locked in. Here is what parents usually want to know.
+        Short version: CAM helps students notice more real jobs before subject choices get locked in. <strong>Advisory</strong> means we widen options — we don't tell you what to choose. Here is what parents usually want to know.
       </p>
       <ul className="mt-8 grid gap-4 sm:grid-cols-2">
         {items.map(({ Icon, title, body }) => (
