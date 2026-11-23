@@ -2,6 +2,9 @@ import { Link } from "react-router-dom";
 import { cam } from "@/data/cam";
 
 const LINKS = [
+  { label: "For schools", to: "/for-schools" },
+  { label: "AI for Schools lesson", to: "/ai-for-schools" },
+  { label: "Robotics & Coding", to: "/for-schools#programmes" },
   { label: "Talk", to: "/talk" },
   { label: "15 Katas", to: "/katas" },
   { label: "Jobs atlas", to: "/atlas" },
@@ -18,7 +21,7 @@ export default function CamFooter() {
         <div>
           <p style={{fontFamily:"'Bricolage Grotesque', sans-serif",fontWeight:800,fontSize:28}}>CAM</p>
           <p className="mt-2 text-sm font-semibold" style={{color:"#FFC94A"}}>{cam.meta.tagline}</p>
-          <p className="mt-3 max-w-md text-sm leading-relaxed" style={{color:"#BFE8DC"}}>{cam.meta.brand}. Career-exposure for Classes 8–12 — the talk, the atlas, the game, six lenses, thirty days and founder field notes.</p>
+          <p className="mt-3 max-w-md text-sm leading-relaxed" style={{color:"#BFE8DC"}}>{cam.meta.brand}. Career exposure for Classes 8–12, plus separate school programmes in AI literacy, robotics and coding.</p>
           <div className="mt-5 flex flex-wrap gap-4 text-sm font-semibold">
             <a href={`mailto:${cam.meta.email}`} className="min-h-11 inline-flex items-center underline-offset-2 hover:underline">{cam.meta.email}</a>
             <a href={cam.meta.instagram.url} target="_blank" rel="noopener noreferrer" className="min-h-11 inline-flex items-center underline-offset-2 hover:underline">Instagram {cam.meta.instagram.handle}</a>
