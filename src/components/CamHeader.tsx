@@ -5,14 +5,11 @@ import { cam } from "@/data/cam";
 
 const NAV = [
   { label: "Home", to: "/", hint: "Start here" },
-  { label: "Talk", to: "/talk", hint: "The keynote, slide by slide" },
+  { label: "For Schools", to: "/for-schools", hint: "Programmes · pilots · enquiries" },
+  { label: "Students", to: "/atlas", hint: "Explore careers across industries" },
+  { label: "Talk", to: "/talk", hint: "The CAM keynote" },
   { label: "Katas", to: "/katas", hint: "15 founder field notes" },
-  { label: "AI for Schools", to: "/ai-for-schools", hint: "Classroom lesson presentation" },
-  { label: "Jobs", to: "/atlas", hint: "Search 1,058 careers · 87 industries" },
-  { label: "Play", to: "/play", hint: "Guess the job — 10 clues" },
-  { label: "Lenses", to: "/fit", hint: "Six ways to choose" },
-  { label: "30 days", to: "/challenge", hint: "One small task a day" },
-  { label: "About", to: "/about", hint: "Who built CAM · for parents" },
+  { label: "About", to: "/about", hint: "Our purpose · parents · contact" },
 ];
 
 export default function CamHeader() {
@@ -43,7 +40,7 @@ export default function CamHeader() {
           {NAV.map((item) => <li key={item.to}><NavLink to={item.to} end={item.to === "/"} className={({isActive}) => `inline-flex min-h-11 items-center rounded-full px-3 py-2 text-sm font-bold transition-colors focus-visible:outline focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-[#FF6B5B] ${isActive ? "bg-[#0F3D3E] text-[#FFF6E9]" : "text-[#0F3D3E] hover:bg-[#BFE8DC]"}`}>{item.label}</NavLink></li>)}
         </ul>
         <div className="flex items-center gap-2">
-          <Link to="/katas" className="hidden min-h-11 items-center rounded-full px-4 text-sm font-extrabold sm:inline-flex" style={{background:"#FFC94A",color:"#0F3D3E",border:"2px solid #0F3D3E",boxShadow:"3px 3px 0 #0F3D3E"}}>Explore Katas</Link>
+          <Link to="/for-schools" className="hidden min-h-11 items-center rounded-full px-4 text-sm font-extrabold sm:inline-flex" style={{background:"#FFC94A",color:"#0F3D3E",border:"2px solid #0F3D3E",boxShadow:"3px 3px 0 #0F3D3E"}}>Partner with us</Link>
           <button ref={closeBtnRef} type="button" className="inline-flex min-h-11 min-w-11 items-center justify-center rounded-md xl:hidden" style={{color:"#0F3D3E",border:"2px solid #0F3D3E",background:"#FFF6E9"}} aria-expanded={open} aria-controls={panelId} aria-label={open ? "Close menu" : "Open menu"} onClick={() => setOpen(v => !v)}>
             {open ? <X className="h-5 w-5" aria-hidden="true"/> : <Menu className="h-5 w-5" aria-hidden="true"/>}
           </button>

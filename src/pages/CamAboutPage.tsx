@@ -81,9 +81,10 @@ export default function CamAboutPage() {
           <div className="mt-4"><ContactCard /></div>
           <p className="cam-dim mt-6 text-sm leading-relaxed">
             CAM is a reading and exposure project. It does not give career, admissions or psychological advice, and the atlas is a door
-            into the world of work — not the whole building. For school programmes, see{" "}
-            <a href="https://voyce-x.lovable.app/ai4schools" target="_blank" rel="noopener noreferrer" className="underline" style={{ color: "var(--cam-kraft)" }}>AI4Schools</a> and{" "}
-            <a href="https://voyce-x.lovable.app/schools" target="_blank" rel="noopener noreferrer" className="underline" style={{ color: "var(--cam-kraft)" }}>VOYCE for Schools</a>.
+            into the world of work — not the whole building. For school programmes, explore{" "}
+            <a href="/ai-for-schools" className="underline" style={{ color: "var(--cam-kraft)" }}>AI for Schools</a>,{" "}
+            <a href="/for-schools#programmes" className="underline" style={{ color: "var(--cam-kraft)" }}>Robotics & Coding</a> and the{" "}
+            <a href="/for-schools" className="underline" style={{ color: "var(--cam-kraft)" }}>school partnership page</a>.
           </p>
         </div>
       </section>

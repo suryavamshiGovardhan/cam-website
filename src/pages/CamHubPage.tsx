@@ -390,14 +390,14 @@ export default function CamHubPage() {
             <div>
               <p className="cam-kicker" style={{ color: "var(--cam-mint)" }}>For principals</p>
               <h3 className="cam-serif mt-3 text-3xl leading-tight sm:text-4xl" style={{ color: "#FFFFFF" }}>
-                Your students can't choose a career they've never heard of.
+                Give students more opportunities to explore, question and create.
               </h3>
             </div>
             <div>
               <ul className="space-y-3 text-[15px] font-semibold" style={{ color: "var(--cam-mint)" }}>
-                <li className="flex items-center gap-3"><CalendarDays className="h-5 w-5 shrink-0" aria-hidden="true" /> One 30-day exposure series</li>
-                <li className="flex items-center gap-3"><Sparkles className="h-5 w-5 shrink-0" aria-hidden="true" /> Free</li>
-                <li className="flex items-center gap-3"><GraduationCap className="h-5 w-5 shrink-0" aria-hidden="true" /> Built for Classes 8–12</li>
+                <li className="flex items-center gap-3"><CalendarDays className="h-5 w-5 shrink-0" aria-hidden="true" /> Career exposure through CAM</li>
+                <li className="flex items-center gap-3"><Sparkles className="h-5 w-5 shrink-0" aria-hidden="true" /> Separate AI literacy programme</li>
+                <li className="flex items-center gap-3"><GraduationCap className="h-5 w-5 shrink-0" aria-hidden="true" /> Robotics and coding exploration</li>
               </ul>
               <div className="mt-6 flex flex-wrap gap-3">
                 <a
@@ -415,15 +415,9 @@ export default function CamHubPage() {
                 >
                   WhatsApp
                 </a>
-                <a
-                  href="https://voyce-x.lovable.app/schools"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="cam-btn cam-btn-ghost inline-flex"
-                  style={{ background: "#FFFFFF" }}
-                >
-                  School form
-                </a>
+                <Link to="/for-schools" className="cam-btn cam-btn-ghost inline-flex" style={{ background: "#FFFFFF" }}>
+                  Explore school programmes <ArrowRight className="h-4 w-4" aria-hidden="true" />
+                </Link>
               </div>
             </div>
           </div>
