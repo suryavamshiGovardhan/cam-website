@@ -4,6 +4,7 @@ import { Routes, Route, Navigate, useLocation } from "react-router-dom";
 const CamHubPage = lazy(() => import("./pages/CamHubPage"));
 const CamArticlePage = lazy(() => import("./pages/CamArticlePage"));
 const CamTalkPage = lazy(() => import("./pages/CamTalkPage"));
+const CamKatasPage = lazy(() => import("./pages/CamKatasPage"));
 const CamAtlasPage = lazy(() => import("./pages/CamAtlasPage"));
 const CamPlayPage = lazy(() => import("./pages/CamPlayPage"));
 const CamFitPage = lazy(() => import("./pages/CamFitPage"));
@@ -37,6 +38,7 @@ export default function App() {
         <Route path="/articles/inside-the-atlas-88-industries" element={<Navigate to="/articles/inside-the-atlas-87-industries" replace />} />
         <Route path="/articles/:slug" element={<CamArticlePage />} />
         <Route path="/talk" element={<CamTalkPage />} />
+        <Route path="/katas" element={<CamKatasPage />} />
         <Route path="/atlas" element={<CamAtlasPage />} />
         <Route path="/careers" element={<CamAtlasPage />} />
         <Route path="/play" element={<CamPlayPage />} />
