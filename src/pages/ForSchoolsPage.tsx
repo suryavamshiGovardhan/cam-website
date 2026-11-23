@@ -38,13 +38,18 @@ export default function ForSchoolsPage() {
 
   const submit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const subject = encodeURIComponent(`School programme enquiry — ${school || "New school"}`);
-    const body = encodeURIComponent([
-      "Hello, I'd like to discuss a school programme / demonstration.",
-      "", `School: ${school}`, `Location: ${location}`, `Contact person / phone: ${contact}`,
-      `Classes / grades: ${grades}`, `Programme: ${programme}`, `Additional note: ${message || "Not provided"}`,
-    ].join("\n"));
-    window.location.href = `mailto:${cam.meta.email}?subject=${subject}&body=${body}`;
+    const text = [
+      "Hello CAM Team! I'd like to discuss a school programme / demonstration.",
+      "",
+      `*School:* ${school}`,
+      `*Location:* ${location}`,
+      `*Contact person / phone:* ${contact}`,
+      `*Classes / grades:* ${grades || "Not specified"}`,
+      `*Programme:* ${programme}`,
+      `*Additional note:* ${message || "Not provided"}`,
+    ].join("\n");
+    const whatsappUrl = `https://wa.me/919010481175?text=${encodeURIComponent(text)}`;
+    window.open(whatsappUrl, "_blank", "noopener,noreferrer");
   };
 
   return (
@@ -132,7 +137,7 @@ export default function ForSchoolsPage() {
           <div>
             <p className="cam-kicker" style={{color:"#FFC94A"}}>Talk to the team</p>
             <h2 className="cam-serif mt-3 text-4xl leading-tight sm:text-5xl">Let's understand your school before we propose a programme.</h2>
-            <p className="mt-5 max-w-lg text-sm leading-relaxed" style={{color:"#BFE8DC"}}>Share a few details. Your email app will open with a prepared enquiry addressed to the team; nothing is submitted or stored by this website.</p>
+            <p className="mt-5 max-w-lg text-sm leading-relaxed" style={{color:"#BFE8DC"}}>Share a few details and continue to WhatsApp with a prepared message addressed to the CAM team. Review it and tap Send in WhatsApp. This website does not store the enquiry.</p>
             <div className="mt-7 flex items-center gap-3 text-sm font-semibold"><Mail className="h-5 w-5" style={{color:"#FFC94A"}}/><a className="underline" href={`mailto:${cam.meta.email}`}>{cam.meta.email}</a></div>
           </div>
           <form onSubmit={submit} className="rounded-2xl p-5 sm:p-7" style={{background:"#FFF6E9",color:"#0F3D3E"}}>
@@ -144,8 +149,8 @@ export default function ForSchoolsPage() {
             </div>
             <label className="mt-4 block text-xs font-extrabold uppercase tracking-wide">Programme<select value={programme} onChange={e=>setProgramme(e.target.value)} className="mt-2 min-h-12 w-full rounded-xl border-2 px-3 text-base font-medium normal-case" style={{borderColor:"#0F3D3E"}}><option>I'd like to discuss all three</option><option>CAM — Career Advisory Movement</option><option>AI for Schools</option><option>Robotics & Coding</option></select></label>
             <label className="mt-4 block text-xs font-extrabold uppercase tracking-wide">Anything else? <span className="font-medium normal-case">(optional)</span><textarea value={message} onChange={e=>setMessage(e.target.value)} rows={3} className="mt-2 w-full rounded-xl border-2 p-3 text-base font-medium normal-case" style={{borderColor:"#0F3D3E"}} placeholder="Timings, class size, language or questions"/></label>
-            <button type="submit" className="cam-btn cam-btn-sun mt-5 w-full justify-center">Prepare school enquiry <ArrowRight className="h-4 w-4"/></button>
-            <p className="mt-3 text-xs leading-relaxed" style={{color:"#526B67"}}>By opening your email app, you choose whether to send the enquiry. Please do not include sensitive student information.</p>
+            <button type="submit" className="cam-btn cam-btn-sun mt-5 w-full justify-center">Continue to WhatsApp <ArrowRight className="h-4 w-4"/></button>
+            <p className="mt-3 text-xs leading-relaxed" style={{color:"#526B67"}}>WhatsApp will open with your enquiry filled in. Review the details and tap Send to message CAM. Please do not include sensitive student information.</p>
           </form>
         </div>
       </section>
