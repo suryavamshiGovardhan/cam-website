@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
-import { ArrowLeft, ArrowRight, BookOpen, Brain, CheckCircle2, Download, Keyboard, Lightbulb, Sparkles, X } from "lucide-react";
+import { ArrowLeft, ArrowRight, CheckCircle2, Download, Keyboard, Sparkles, X } from "lucide-react";
 import CamShell from "@/components/cam/CamShell";
 
 type Slide = {
