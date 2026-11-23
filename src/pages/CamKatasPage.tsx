@@ -22,7 +22,6 @@ const katas = [
 
 export default function CamKatasPage() {
   const [index, setIndex] = useState(-1);
-  const [overview, setOverview] = useState(true);
   const active = index >= 0 ? katas[index] : null;
   const move = useCallback((step: number) => setIndex((n) => Math.max(-1, Math.min(katas.length - 1, n + step))), []);
   useEffect(() => {
@@ -55,18 +54,35 @@ export default function CamKatasPage() {
           </div>
         </div>
         <div className="mt-8 flex flex-wrap gap-3">
-          <button onClick={() => { setIndex(0); setOverview(false); }} className="cam-btn cam-lift"><Maximize2 className="h-4 w-4"/> Start presentation</button>
+          <button onClick={() => { setIndex(0); }} className="cam-btn cam-lift"><Maximize2 className="h-4 w-4"/> Start presentation</button>
           <button onClick={printDeck} className="cam-btn-ghost cam-btn"><Download className="h-4 w-4"/> Print / save slides</button>
         </div>
         <div className="mt-12 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
           {katas.map((k, i) => (
-            <button key={k.title} onClick={() => { setIndex(i); setOverview(false); }} className="cam-card cam-lift group p-5 text-left">
+            <button key={k.title} onClick={() => { setIndex(i); }} className="cam-card cam-lift group p-5 text-left">
               <div className="flex items-center justify-between"><span className="cam-kicker">KATA {String(i+1).padStart(2,"0")}</span><ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1"/></div>
               <h2 className="cam-serif mt-5 text-2xl leading-tight">{k.title}</h2>
               <p className="mt-3 text-sm font-extrabold" style={{color:"var(--cam-coral)"}}>{k.thesis}</p>
               <p className="cam-muted mt-3 text-sm leading-relaxed">{k.move}</p>
             </button>
           ))}
+        </div>
+        <div className="hidden print:block">
+          <section className="mb-8 flex h-[7.1in] flex-col justify-center px-10" style={{background:"#0F3D3E",color:"#FFF6E9",pageBreakAfter:"always"}}>
+            <p className="text-sm font-bold tracking-widest" style={{color:"#FFC94A"}}>CAM / FOUNDER FIELD NOTES</p>
+            <h2 className="mt-10 text-6xl font-bold">15 KATAS.<br/>ONE SCHOOL OF THOUGHT.</h2>
+            <p className="mt-10 text-2xl" style={{color:"#BFE8DC"}}>Founder lessons translated into practical moves for the Career Advisory Movement.</p>
+          </section>
+          {katas.map((k,i) => <section key={k.title} className="flex h-[7.1in] flex-col justify-center px-10" style={{pageBreakAfter:"always",background:"#FFF6E9",color:"#0F3D3E"}}>
+            <p className="text-xs font-bold tracking-widest">KATA {String(i+1).padStart(2,"0")} / FOUNDER FIELD NOTES</p>
+            <h2 className="mt-8 text-5xl font-bold">{k.title}</h2>
+            <p className="mt-5 text-2xl font-bold" style={{color:"#FF6B5B"}}>{k.thesis}</p>
+            <div className="mt-10 grid grid-cols-2 gap-8">
+              <div className="rounded-xl border bg-white p-7"><p className="text-xs font-bold">THE IDEA</p><p className="mt-4 text-xl leading-relaxed">{k.idea}</p></div>
+              <div className="rounded-xl p-7" style={{background:"#BFE8DC"}}><p className="text-xs font-bold">THE CAM MOVE</p><p className="mt-4 text-xl leading-relaxed">{k.move}</p></div>
+            </div>
+            <p className="mt-12 text-xs font-bold tracking-widest">THINK / EXPLORE / CREATE · CAM — EXPOSURE IS ALL YOU NEED</p>
+          </section>)}
         </div>
       </section>
       {active && (
