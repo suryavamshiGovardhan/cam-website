@@ -15,7 +15,7 @@ if (fs.existsSync("public/robots.txt")) fs.copyFileSync("public/robots.txt", pat
 const articleSlugs = [];
 try {
   const camSrc = fs.readFileSync("src/data/cam.ts", "utf8");
-  for (const m of camSrc.matchAll(/"slug":\\s*"([^"]+)"/g)) articleSlugs.push(m[1]);
+  for (const m of camSrc.matchAll(/"slug":\s*"([^"]+)"/g)) articleSlugs.push(m[1]);
 } catch {}
 
 const routes = ["play","atlas","careers","talk","katas","about","fit","challenge","admin","admin/session",...articleSlugs.map(s => `articles/${s}`),"articles/the-knowing-gap"];
