@@ -7,6 +7,7 @@ const NAV = [
   { label: "Home", to: "/", hint: "Start here" },
   { label: "Talk", to: "/talk", hint: "The keynote, slide by slide" },
   { label: "Katas", to: "/katas", hint: "15 founder field notes" },
+  { label: "AI for Schools", to: "/ai-for-schools", hint: "Classroom lesson presentation" },
   { label: "Jobs", to: "/atlas", hint: "Search 1,058 careers · 87 industries" },
   { label: "Play", to: "/play", hint: "Guess the job — 10 clues" },
   { label: "Lenses", to: "/fit", hint: "Six ways to choose" },

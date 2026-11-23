@@ -5,6 +5,7 @@ const CamHubPage = lazy(() => import("./pages/CamHubPage"));
 const CamArticlePage = lazy(() => import("./pages/CamArticlePage"));
 const CamTalkPage = lazy(() => import("./pages/CamTalkPage"));
 const CamKatasPage = lazy(() => import("./pages/CamKatasPage"));
+const AiForSchoolsPage = lazy(() => import("./pages/AiForSchoolsPage"));
 const CamAtlasPage = lazy(() => import("./pages/CamAtlasPage"));
 const CamPlayPage = lazy(() => import("./pages/CamPlayPage"));
 const CamFitPage = lazy(() => import("./pages/CamFitPage"));
@@ -39,6 +40,7 @@ export default function App() {
         <Route path="/articles/:slug" element={<CamArticlePage />} />
         <Route path="/talk" element={<CamTalkPage />} />
         <Route path="/katas" element={<CamKatasPage />} />
+        <Route path="/ai-for-schools" element={<AiForSchoolsPage />} />
         <Route path="/atlas" element={<CamAtlasPage />} />
         <Route path="/careers" element={<CamAtlasPage />} />
         <Route path="/play" element={<CamPlayPage />} />
