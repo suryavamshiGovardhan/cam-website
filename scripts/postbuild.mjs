@@ -18,7 +18,7 @@ try {
   for (const m of camSrc.matchAll(/"slug":\s*"([^"]+)"/g)) articleSlugs.push(m[1]);
 } catch {}
 
-const routes = ["play","atlas","careers","talk","katas","ai-for-schools","about","fit","challenge","admin","admin/session",...articleSlugs.map(s => `articles/${s}`),"articles/the-knowing-gap"];
+const routes = ["play","atlas","careers","talk","katas","ai-for-schools","for-schools","about","fit","challenge","admin","admin/session",...articleSlugs.map(s => `articles/${s}`),"articles/the-knowing-gap"];
 for (const route of [...new Set(routes)]) {
   const dir = path.join(dist, route);
   fs.mkdirSync(dir, {recursive:true});
