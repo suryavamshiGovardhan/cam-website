@@ -6,6 +6,7 @@ const CamArticlePage = lazy(() => import("./pages/CamArticlePage"));
 const CamTalkPage = lazy(() => import("./pages/CamTalkPage"));
 const CamKatasPage = lazy(() => import("./pages/CamKatasPage"));
 const AiForSchoolsPage = lazy(() => import("./pages/AiForSchoolsPage"));
+const ForSchoolsPage = lazy(() => import("./pages/ForSchoolsPage"));
 const CamAtlasPage = lazy(() => import("./pages/CamAtlasPage"));
 const CamPlayPage = lazy(() => import("./pages/CamPlayPage"));
 const CamFitPage = lazy(() => import("./pages/CamFitPage"));
@@ -35,6 +36,7 @@ export default function App() {
     <Suspense fallback={<Fallback />}>
       <Routes>
         <Route path="/" element={<CamHubPage />} />
+        <Route path="/for-schools" element={<ForSchoolsPage />} />
         <Route path="/articles/the-exposure-gap" element={<Navigate to="/articles/the-knowing-gap" replace />} />
         <Route path="/articles/inside-the-atlas-88-industries" element={<Navigate to="/articles/inside-the-atlas-87-industries" replace />} />
         <Route path="/articles/:slug" element={<CamArticlePage />} />
